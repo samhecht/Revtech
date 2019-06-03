@@ -19,6 +19,9 @@ function Home() {
       <Typography variant="h1" component="h2" gutterBottom>
         RevTek
       </Typography>
+      <Typography variant="h2" gutterBottom>
+        Matching companies with talented students
+      </Typography>
       </Box>
     </div>
   );
