@@ -31,6 +31,7 @@ function Navbar (){
           <Button color="inherit"><Link to="/Students">Students</Link></Button>
           <Button color="inherit"><Link to="/SignIn">Login</Link></Button>
           <Button color="inherit"><Link to="/SignUp">Sign Up</Link></Button>
+          <Button color="inherit"><Link to="/">Sign Out</Link></Button>
         </Toolbar>
       </AppBar>
     </div>
