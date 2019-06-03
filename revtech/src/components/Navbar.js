@@ -29,7 +29,8 @@ function Navbar (){
           <Button color="inherit"><Link to="/">RevTek</Link></Button>
           <Button color="inherit"><Link to="/Companies">Companies</Link></Button>
           <Button color="inherit"><Link to="/Students">Students</Link></Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit"><Link to="/SignIn">Login</Link></Button>
+          <Button color="inherit"><Link to="/SignUp">Sign Up</Link></Button>
         </Toolbar>
       </AppBar>
     </div>
