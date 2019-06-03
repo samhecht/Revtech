@@ -12,10 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import firebase from "./firebase/firebase";
+import firebase from "./../firebase/firebase";
 
 import { Link, withRouter } from "react-router-dom";
 
+import Navbar from './../components/Navbar.js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -83,7 +84,10 @@ const { history } = props;
   }
 
  return (
+   <div>
+    <Navbar/>
    <Container component="main" maxWidth="xs">
+     
      <CssBaseline />
      <div className={classes.paper}>
        <Avatar className={classes.avatar}>
@@ -143,6 +147,7 @@ const { history } = props;
      </div>
 
    </Container>
+   </div>
  );
 }
 

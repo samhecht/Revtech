@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import firebase from "./firebase/firebase";
+import Home from './pages/Home.js'
+import Companies from './pages/Companies.js'
+import Students from './pages/Students.js'
+import SignIn from './pages/SignIn.js'
+import SignUp from './pages/SignUp.js'
 
-import SignIn from './SignIn.js'
-import SignUp from './SignUp.js'
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import firebase from "./firebase/firebase.js";
+
 
 
 class App extends React.Component{
@@ -38,21 +42,21 @@ class App extends React.Component{
     // }
     return (
       <div className="App">
-        {/* <p>Didn't get data</p> */}
-        
-     
 
       <Router>
-      <Route path="/SignIn" exact component={SignIn} />
-       <Route path="/SignUp" exact component={SignUp} />
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/Companies" component={Companies}/>
+        <Route exact path="/Students" component={Students}/>
+        <Route path="/SignIn" exact component={SignIn} />
+        <Route path="/SignUp" exact component={SignUp} />
+      </Router>
+       
 
         {/* <PrivateRoute path="/" exact component={TimerPage} user={user} permissionType="user"/> */}
-      </Router>
    
       </div>
     );
   }
-  
 }
 
 

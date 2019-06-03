@@ -12,9 +12,14 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import firebase from "./firebase/firebase";
+import firebase from "./../firebase/firebase";
 import { Link, withRouter } from "react-router-dom";
+
 import "firebase/auth";
+
+
+import Navbar from './../components/Navbar.js';
+
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -78,6 +83,8 @@ const [password, setPassword] = useState( "");
   }
 
   return (
+    <div>
+    <Navbar/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -193,6 +200,7 @@ const [password, setPassword] = useState( "");
       </div>
 
     </Container>
+    </div>
   );
 }
 
