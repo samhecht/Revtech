@@ -34,11 +34,13 @@ function Navbar(props){
       signOut().catch(e => console.error("Sign out error:", e));
     }
 
-    function logoutButton() {
-      if (user == null) {
-        return <Button color="inherit" onClick={handleLogOut}><Link to="/">Sign Outtt</Link></Button>;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        setUser(true);
+      } else {
+        setUser(null);
       }
-    }
+    });
 
     return (
     <div className={classes.root}>
@@ -48,7 +50,7 @@ function Navbar(props){
           <Button color="inherit"><Link to="/Companies">Companies</Link></Button>
           <Button color="inherit"><Link to="/Students">Students</Link></Button>
           <Button color="inherit"><Link to="/SignIn">Login</Link></Button>
-          {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link to="/">Sign Out</Link></Button>}
+          {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link to="/">Logout</Link></Button>}
         </Toolbar>
       </AppBar>
     </div>
