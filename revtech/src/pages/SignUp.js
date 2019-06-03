@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import firebase from "./../firebase/firebase";
 import { Link, withRouter } from "react-router-dom";
-
+import Snackbar from "@material-ui/core/Snackbar";
 import "firebase/auth";
 
 
@@ -73,9 +73,11 @@ const [password, setPassword] = useState( "");
     console.log(password);
     const promise = firebase.auth().createUserWithEmailAndPassword(email, password);
     promise.then((result)=>{
+      history.push('/')
         console.log('done')
       },
       (error)=>{
+        console.log(error.message)
         setMessage(error.message);
 
       })
@@ -198,7 +200,16 @@ const [password, setPassword] = useState( "");
           </Grid>
         </form>
       </div>
-
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
+        open={!!message}
+        autoHideDuration={5000}
+        onClose={() => setMessage(null)}
+        message={<div>{message}</div>}
+      />
     </Container>
     </div>
   );
