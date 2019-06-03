@@ -31,3 +31,16 @@
     transform: rotate(360deg);
   }
 }
+
+.profilepageform{
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+ 
+}
+.profilepage{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
