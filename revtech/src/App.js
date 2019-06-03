@@ -3,6 +3,9 @@ import './App.css';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebase from "./firebase/firebase";
 
+import SignIn from './SignIn.js'
+import SignUp from './SignUp.js'
+
 
 class App extends React.Component{
 
@@ -28,20 +31,24 @@ class App extends React.Component{
   
 
   render() {
-    if (this.state.test){
-      return (
-        <p>{this.state.test}</p>
-      )
-    }
+    // if (this.state.test){
+    //   return (
+    //     <p>{this.state.test}</p>
+    //   )
+    // }
     return (
       <div className="App">
-        <p>Didn't get data</p>
+        {/* <p>Didn't get data</p> */}
         
-      {/*}
+     
+
       <Router>
-        <PrivateRoute path="/" exact component={TimerPage} user={user} permissionType="user"/>
+      <Route path="/SignIn" exact component={SignIn} />
+       <Route path="/SignUp" exact component={SignUp} />
+
+        {/* <PrivateRoute path="/" exact component={TimerPage} user={user} permissionType="user"/> */}
       </Router>
-    */}
+   
       </div>
     );
   }
