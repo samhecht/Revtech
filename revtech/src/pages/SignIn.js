@@ -60,7 +60,6 @@ const { history } = props;
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
-
   };
 
   const [message, setMessage] = useState("");
