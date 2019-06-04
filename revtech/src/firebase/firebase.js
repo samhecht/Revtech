@@ -18,5 +18,4 @@ export async function signOut() {
   console.log("logged out")
 }
 
-
 export default firebase;
