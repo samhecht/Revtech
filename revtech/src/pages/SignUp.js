@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,8 +12,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import firebase from "./../firebase/firebase";
 import { Link, withRouter } from "react-router-dom";
+
+import "firebase/auth";
+
+
+import Navbar from './../components/Navbar.js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,10 +46,45 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SignUp() {
-  const classes = useStyles();
+
+
+function SignUp(props) {
+
+
+const classes = useStyles();
+const { history } = props;
+const [email, setEmail] = useState( "");
+const [password, setPassword] = useState( "");
+
+
+ const handleEmail = (e) => {
+    setEmail( e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const [message, setMessage] = useState("");
+
+  const handleSignUp = async(e) => {
+    
+    e.preventDefault();
+    console.log(email);
+    console.log(password);
+    const promise = firebase.auth().createUserWithEmailAndPassword(email, password);
+    promise.then((result)=>{
+        console.log('done')
+      },
+      (error)=>{
+        setMessage(error.message);
+
+      })
+
+  }
 
   return (
+    <div>
+    <Navbar/>
     <Container component="main" maxWidth="xs">
       {/* <CssBaseline /> */}
       <div className={classes.paper}>
@@ -121,6 +161,7 @@ function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleEmail}
               />
             </Grid>
             <Grid item xs={12}>
@@ -133,6 +174,7 @@ function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handlePassword}
               />
 
             </Grid>
@@ -142,7 +184,8 @@ function SignUp() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            //className={classes.submit}
+            onClick={handleSignUp}
           >
             Sign Up
           </Button>
@@ -157,6 +200,7 @@ function SignUp() {
       </div>
 
     </Container>
+    </div>
   );
 }
 
