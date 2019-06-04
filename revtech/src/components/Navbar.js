@@ -50,6 +50,8 @@ function Navbar(props){
           <Button color="inherit"><Link to="/Companies">Companies</Link></Button>
           <Button color="inherit"><Link to="/Students">Students</Link></Button>
           <Button color="inherit"><Link to="/SignIn">Login</Link></Button>
+          {/* To-do: specify type of user */}
+          {user == null ? null : <Button><Link to="/Contracts">Contracts</Link></Button>}
           {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link to="/">Logout</Link></Button>}
         </Toolbar>
       </AppBar>
