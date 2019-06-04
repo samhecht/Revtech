@@ -9,6 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import firebase from '../firebase/firebase'
 import { signOut } from "../firebase/firebase";
+import { Box } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,8 +45,19 @@ function Navbar(props){
       }
     });
 
+    const navBarStyle = {
+      backgroundColor: '#73C2FB',
+      padding: "2% 1%",
+    }
+
+    const linkStyle = {
+      color: 'black',
+      textDecoration: 'none',
+    }
+
     return (
     <div className={classes.root}>
+      {/*}
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit"><Link to="/">RevTek</Link></Button>
@@ -53,6 +67,31 @@ function Navbar(props){
           {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link to="/">Logout</Link></Button>}
         </Toolbar>
       </AppBar>
+    */}
+
+    <Box
+      display='flex'
+      flex-direction='row'
+      justifyContent='space-between'
+      style={navBarStyle}
+    >
+      <Typography variant="h5">
+        RevTek
+      </Typography>
+      <Box
+        display='flex'
+        flex-direction='row'
+        justifyContent='space-evenly'
+        color="inherit"
+      >
+        <Button  color="inherit"><Link style={linkStyle} to="/">RevTek</Link></Button>
+        <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+        <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
+        <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
+        <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>
+        {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
+      </Box>
+    </Box>
     </div>
     );
 
