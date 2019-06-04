@@ -67,10 +67,16 @@ const [password, setPassword] = useState( "");
   const [message, setMessage] = useState("");
 
   const handleSignUp = async(e) => {
-    
+
     e.preventDefault();
     console.log(email);
     console.log(password);
+    if(email ==='' || password ===''){
+      setMessage('Please enter all required fields');
+    }
+    
+   
+    else{
     const promise = firebase.auth().createUserWithEmailAndPassword(email, password);
     promise.then((result)=>{
       history.push('/')
@@ -81,8 +87,10 @@ const [password, setPassword] = useState( "");
         setMessage(error.message);
 
       })
+    }
 
   }
+
 
   return (
     <div>
@@ -96,7 +104,7 @@ const [password, setPassword] = useState( "");
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} name="signupform">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -208,8 +216,9 @@ const [password, setPassword] = useState( "");
         open={!!message}
         autoHideDuration={5000}
         onClose={() => setMessage(null)}
-        message={<div>{message}</div>}
+        message={<span>{message}</span>}
       />
+      
     </Container>
     </div>
   );
