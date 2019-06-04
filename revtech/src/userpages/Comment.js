@@ -12,22 +12,26 @@ export default function Comment(props) {
 
     const paperStyle = {
         width: '50%',
-        height: '120px',
+        height: '100%',
         marginLeft: '30%',
         marginTop: '2%'
+    }
+    const commentStyle = {
+        marginBottom: "5%",
+        marginTop: "5%"
     }
     return (
         <React.Fragment>
             <Paper style={paperStyle}>
                 <Box
                     display='flex'
-                    flex-direction='column'
+                    flexDirection='column'
                     justifyContent='space-evenly'
                 >
                 <Typography>
                     Student Name
                 </Typography>
-                <Typography>
+                <Typography style={commentStyle}>
                     I commented to say how great I am!
                 </Typography>
                 </Box>

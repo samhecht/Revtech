@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
 
 
 export default function Posting() {
@@ -54,6 +55,7 @@ export default function Posting() {
                     </Box>
                 </Box>
             </Paper>
+            <CommentForm hidden={hideComments}/>
             <Comment hidden={hideComments}/>
             <Comment hidden={hideComments}/>
                 

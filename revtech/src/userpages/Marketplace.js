@@ -25,6 +25,12 @@ export default function Marketplace() {
                 <Posting/>
                 <Posting/>
             </Box>
+            <div style={{
+                marginTop: '20%',
+                marginBottom: '5%'
+            }}>
+                <p>Copyright 2019 the dream team</p>
+            </div>
             
         </div>
     );
