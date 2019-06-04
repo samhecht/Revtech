@@ -69,12 +69,16 @@ function Contracts(props) {
            project: projectName,
            description: description
        }
-       contracts.push(contract);
-       setClientName("");
-       setCompany("");
-       setEmail("");
-       setProjectName("");
-       setDescription("");
+       if (clientName != "" && clientCompany != "" && email != "" && projectName != "" && description != "") {
+        contracts.push(contract);
+        setClientName("");
+        setCompany("");
+        setEmail("");
+        setProjectName("");
+        setDescription("");
+       } 
+    //    To-do display error message
+       
     };
    
     return (
