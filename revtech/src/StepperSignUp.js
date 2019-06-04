@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { flexbox } from '@material-ui/system';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles(theme => ({
     root: {
         width: '90%',
@@ -18,6 +20,10 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
     },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+      },
 }));
 
 function getSteps() {
@@ -163,14 +169,17 @@ function HorizontalLinearStepper() {
 
     return (
         <div className="page">
+          <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
             <div className={classes.root}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
                         const labelProps = {};
-                        // if (isStepOptional(index)) {
-                        //     labelProps.optional = <Typography variant="caption">Optional</Typography>;
-                        // }
+                        if (isStepOptional(index)) {
+                            labelProps.optional = <Typography variant="caption">Optional</Typography>;
+                        }
                         if (isStepSkipped(index)) {
                             stepProps.completed = false;
                         }
