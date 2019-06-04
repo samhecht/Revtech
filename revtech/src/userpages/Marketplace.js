@@ -29,7 +29,7 @@ export default function Marketplace() {
                 marginTop: '20%',
                 marginBottom: '5%'
             }}>
-                <p>Copyright 2019 the dream team</p>
+                <p>Copyright 2019 the dream team!</p>
             </div>
             
         </div>
