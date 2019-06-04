@@ -13,4 +13,9 @@ const config = {
 
 firebase.initializeApp(config);
 
+export async function signOut() {
+  await firebase.auth().signOut();
+  console.log("logged out")
+}
+
 export default firebase;
