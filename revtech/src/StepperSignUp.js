@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
-      },
+    },
 }));
 
 function getSteps() {
@@ -69,18 +69,18 @@ function getStepContent(step) {
                         autoFocus
                         style={{ width: 300 }}
                     />
-                    
+
                 </div>
             );
         case 1:
             return (<div id="signUpForm">
                 <TextField
-                   variant="outlined"
-                   required
-                   fullWidth
-                   id="linkedin"
-                   label="LinkedIn"
-                   name="linkedin"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="linkedin"
+                    label="LinkedIn"
+                    name="linkedin"
                     autoFocus
                     style={{ width: 300 }}
                 />
@@ -100,18 +100,18 @@ function getStepContent(step) {
         case 2:
             return (<div id="signUpForm">
                 <TextField
-                   variant="outlined"
-                   required
-                   fullWidth
-                   multiline
-                   id="Bio"
-                   label="Enter a short bio"
-                   name="bio"
-                   rows = {4}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    multiline
+                    id="Bio"
+                    label="Enter a short bio"
+                    name="bio"
+                    rows={4}
                     autoFocus
                     style={{ width: 500 }}
                 />
-              
+
 
             </div>);
         default:
@@ -126,7 +126,7 @@ function HorizontalLinearStepper() {
     const steps = getSteps();
 
     function isStepOptional(step) {
-        return step === 1;
+        return step === 1 || step === 2;
     }
 
     function isStepSkipped(step) {
@@ -169,17 +169,17 @@ function HorizontalLinearStepper() {
 
     return (
         <div className="page">
-          <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+            <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+            </Avatar>
             <div className={classes.root}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
                         const labelProps = {};
-                        if (isStepOptional(index)) {
-                            labelProps.optional = <Typography variant="caption">Optional</Typography>;
-                        }
+                        // if (isStepOptional(index)) {
+                        //     labelProps.optional = <Typography variant="caption">Optional</Typography>;
+                        // }
                         if (isStepSkipped(index)) {
                             stepProps.completed = false;
                         }
@@ -207,7 +207,7 @@ function HorizontalLinearStepper() {
                                     <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                         Back
               </Button>
-                                    {/* {isStepOptional(activeStep) && (
+                                    {isStepOptional(activeStep) && (
                 <Button
                   variant="contained"
                   color="primary"
@@ -216,7 +216,7 @@ function HorizontalLinearStepper() {
                 >
                   Skip
                 </Button>
-              )} */}
+              )}
 
                                     <Button
                                         variant="contained"
@@ -224,7 +224,7 @@ function HorizontalLinearStepper() {
                                         onClick={handleNext}
                                         className={classes.button}
                                     >
-                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                        {activeStep === steps.length - 1 ? 'Next' : 'Next'}
                                     </Button>
                                 </div>
                             </div>
