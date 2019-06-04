@@ -51,7 +51,7 @@ function Navbar(props){
     }
 
     const linkStyle = {
-      color: 'black',
+      color: 'white',
       textDecoration: 'none',
     }
 
@@ -75,16 +75,23 @@ function Navbar(props){
       justifyContent='space-between'
       style={navBarStyle}
     >
-      <Typography variant="h5">
-        RevTek
-      </Typography>
+      <Box
+        marginLeft="5%"
+      >
+        <Link style={linkStyle} to="/">
+          <Typography variant="h4" to="/" >
+            RevTek
+          </Typography>
+        </Link>
+      </Box>
+      
       <Box
         display='flex'
         flex-direction='row'
         justifyContent='space-evenly'
         color="inherit"
+        width="45%"
       >
-        <Button  color="inherit"><Link style={linkStyle} to="/">RevTek</Link></Button>
         <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
         <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
         <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
