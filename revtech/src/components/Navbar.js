@@ -57,50 +57,36 @@ function Navbar(props){
 
     return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit"><Link to="/">RevTek</Link></Button>
-          <Button color="inherit"><Link to="/Companies">Companies</Link></Button>
-          <Button color="inherit"><Link to="/Students">Students</Link></Button>
-          <Button color="inherit"><Link to="/SignIn">Login</Link></Button>
-          {/* To-do: specify type of user */}
-          {user == null ? null : <Button><Link to="/Contracts">Contracts</Link></Button>}
-          {user !==null ? null : <Button color="inherit"><Link to="/SignIn">Login</Link></Button>}
-          {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link to="/">Logout</Link></Button>}
-        </Toolbar>
-      </AppBar>
-    */}
-
-    <Box
-      display='flex'
-      flex-direction='row'
-      justifyContent='space-between'
-      style={navBarStyle}
-    >
-      <Box
-        marginLeft="5%"
-      >
-        <Link style={linkStyle} to="/">
-          <Typography variant="h4" to="/" >
-            RevTek
-          </Typography>
-        </Link>
-      </Box>
-      
       <Box
         display='flex'
         flex-direction='row'
-        justifyContent='space-evenly'
-        color="inherit"
-        width="45%"
+        justifyContent='space-between'
+        style={navBarStyle}
       >
-        <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
-        <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
-        <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
-        {user !==null ? null : <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
-        {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
+        <Box
+          marginLeft="5%"
+        >
+          <Link style={linkStyle} to="/">
+            <Typography variant="h4" to="/" >
+              RevTek
+            </Typography>
+          </Link>
+        </Box>
+        
+        <Box
+          display='flex'
+          flex-direction='row'
+          justifyContent='space-evenly'
+          color="inherit"
+          width="45%"
+        >
+          <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+          <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
+          <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
+          {user !==null ? null : <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
+          {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
+        </Box>
       </Box>
-    </Box>
     </div>
     );
 
