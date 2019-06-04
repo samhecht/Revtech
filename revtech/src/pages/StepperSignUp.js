@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { flexbox } from '@material-ui/system';
+
+import Navbar from './../components/Navbar.js';
 const useStyles = makeStyles(theme => ({
     root: {
         width: '90%',
@@ -25,6 +27,9 @@ function getSteps() {
 }
 
 function getStepContent(step) {
+
+
+
     switch (step) {
         case 0:
             return (
@@ -162,7 +167,11 @@ function HorizontalLinearStepper() {
     }
 
     return (
+
+       <div>
+        <Navbar/>
         <div className="page">
+         
             <div className={classes.root}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
@@ -222,6 +231,8 @@ function HorizontalLinearStepper() {
                         )}
                 </div>
             </div>
+           
+        </div>
         </div>
     );
 }
