@@ -88,7 +88,7 @@ function Navbar(props){
         <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
         <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
         <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
-        <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>
+        {user !==null ? null : <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
         {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
       </Box>
     </Box>
