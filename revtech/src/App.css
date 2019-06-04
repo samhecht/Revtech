@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -30,4 +31,26 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#signUpForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  align-items: center;
+  
+}
+
+.signUpContainer{
+  display: flex !important;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+}
+.page{
+  display: flex;
+  justify-content: center;
+  min-width: 90%;
 }
