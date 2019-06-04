@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home.js'
 import Companies from './pages/Companies.js'
+import Contracts from './pages/Contracts.js'
 import Students from './pages/Students.js'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp.js'
-import StepperSignUp from './StepperSignUp'
+import StepperSignUp from './pages/StepperSignUp'
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebase from "./firebase/firebase.js";
+import Marketplace from './userpages/Marketplace';
 
 class App extends React.Component{
 
@@ -45,10 +47,16 @@ class App extends React.Component{
       <Router>
         <Route exact path="/" component={Home}/>
         <Route exact path="/Companies" component={Companies}/>
+        <Route exact path="/Contracts" component={Contracts}/>
         <Route exact path="/Students" component={Students}/>
         <Route path="/SignIn" exact component={SignIn} />
-        <Route path="/SignUp" exact component={SignUp} />
-        <Route path="/StepperSignUp" exact component={StepperSignUp} />
+
+        <Route path="/SignUp" exact component={StepperSignUp} />
+        {/* <Route path="/StepperSignUp" exact component={StepperSignUp} /> */}
+
+       {/* <Route path="/SignUp" exact component={SignUp} /> */}
+        <Route path="/Marketplace" exact component={Marketplace}/>
+
       </Router>
        
 

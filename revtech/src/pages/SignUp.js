@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import firebase from "./../firebase/firebase";
 import { Link, withRouter } from "react-router-dom";
-
+import Snackbar from "@material-ui/core/Snackbar";
 import "firebase/auth";
 
 
@@ -67,20 +67,30 @@ const [password, setPassword] = useState( "");
   const [message, setMessage] = useState("");
 
   const handleSignUp = async(e) => {
-    
+
     e.preventDefault();
     console.log(email);
     console.log(password);
+    if(email ==='' || password ===''){
+      setMessage('Please enter all required fields');
+    }
+    
+   
+    else{
     const promise = firebase.auth().createUserWithEmailAndPassword(email, password);
     promise.then((result)=>{
+      history.push('/')
         console.log('done')
       },
       (error)=>{
+        console.log(error.message)
         setMessage(error.message);
 
       })
+    }
 
   }
+
 
   return (
     <div>
@@ -94,7 +104,7 @@ const [password, setPassword] = useState( "");
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} name="signupform">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -198,7 +208,17 @@ const [password, setPassword] = useState( "");
           </Grid>
         </form>
       </div>
-
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
+        open={!!message}
+        autoHideDuration={5000}
+        onClose={() => setMessage(null)}
+        message={<span>{message}</span>}
+      />
+      
     </Container>
     </div>
   );

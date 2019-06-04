@@ -7,8 +7,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { flexbox } from '@material-ui/system';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Avatar from '@material-ui/core/Avatar';
+
+
+import Navbar from './../components/Navbar.js';
+
 const useStyles = makeStyles(theme => ({
     root: {
         width: '90%',
@@ -31,6 +36,9 @@ function getSteps() {
 }
 
 function getStepContent(step) {
+
+
+
     switch (step) {
         case 0:
             return (
@@ -168,13 +176,18 @@ function HorizontalLinearStepper() {
     }
 
     return (
+
+       <div>
+        <Navbar/>
         <div className="page">
+
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+
             <div className={classes.root}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
@@ -234,6 +247,8 @@ function HorizontalLinearStepper() {
                         )}
                 </div>
             </div>
+           
+        </div>
         </div>
     );
 }
