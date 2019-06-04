@@ -76,7 +76,7 @@ function getStepContent(step) {
             return (<div id="signUpForm">
                 <TextField
                     variant="outlined"
-                    required
+                    
                     fullWidth
                     id="linkedin"
                     label="LinkedIn"
@@ -87,7 +87,7 @@ function getStepContent(step) {
                 <br></br>
                 <TextField
                     variant="outlined"
-                    required
+                   
                     fullWidth
                     id="github"
                     label="Github link"
@@ -101,7 +101,7 @@ function getStepContent(step) {
             return (<div id="signUpForm">
                 <TextField
                     variant="outlined"
-                    required
+                    
                     fullWidth
                     multiline
                     id="Bio"
@@ -172,14 +172,17 @@ function HorizontalLinearStepper() {
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
+            <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
             <div className={classes.root}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
                         const labelProps = {};
-                        // if (isStepOptional(index)) {
-                        //     labelProps.optional = <Typography variant="caption">Optional</Typography>;
-                        // }
+                        if (isStepOptional(index)) {
+                            labelProps.optional = <Typography variant="caption">Optional</Typography>;
+                        }
                         if (isStepSkipped(index)) {
                             stepProps.completed = false;
                         }
@@ -204,10 +207,10 @@ function HorizontalLinearStepper() {
                             <div>
                                 <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
                                 <div>
-                                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                    { activeStep === 2 && <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                         Back
-              </Button>
-                                    {isStepOptional(activeStep) && (
+              </Button>}
+                                    {/* {isStepOptional(activeStep) && (
                 <Button
                   variant="contained"
                   color="primary"
@@ -216,7 +219,7 @@ function HorizontalLinearStepper() {
                 >
                   Skip
                 </Button>
-              )}
+              )} */}
 
                                     <Button
                                         variant="contained"
@@ -224,7 +227,7 @@ function HorizontalLinearStepper() {
                                         onClick={handleNext}
                                         className={classes.button}
                                     >
-                                        {activeStep === steps.length - 1 ? 'Next' : 'Next'}
+                                        {activeStep === 0 ? 'Create Account' : 'Next'}
                                     </Button>
                                 </div>
                             </div>
