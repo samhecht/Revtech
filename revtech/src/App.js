@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp.js'
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebase from "./firebase/firebase.js";
+import Marketplace from './userpages/Marketplace';
 
 
 
@@ -49,6 +50,7 @@ class App extends React.Component{
         <Route exact path="/Students" component={Students}/>
         <Route path="/SignIn" exact component={SignIn} />
         <Route path="/SignUp" exact component={SignUp} />
+        <Route path="/Marketplace" exact component={Marketplace}/>
       </Router>
        
 
