@@ -5,7 +5,7 @@ import firebase from "./firebase/firebase";
 
 import SignIn from './SignIn.js'
 import SignUp from './SignUp.js'
-
+import StepperSignUp from './StepperSignUp'
 
 class App extends React.Component{
 
@@ -45,7 +45,7 @@ class App extends React.Component{
       <Router>
       <Route path="/SignIn" exact component={SignIn} />
        <Route path="/SignUp" exact component={SignUp} />
-
+       <Route path="/StepperSignUp" exact component={StepperSignUp} />
         {/* <PrivateRoute path="/" exact component={TimerPage} user={user} permissionType="user"/> */}
       </Router>
    
