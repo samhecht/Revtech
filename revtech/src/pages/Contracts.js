@@ -50,8 +50,8 @@ function Contracts(props) {
    const { history } = props;
     const classes = useStyles();
     // Contract
-    const [clientName, setClientName] = useState("");
-    const [clientCompany, setCompany] = useState("");
+    // const [clientName, setClientName] = useState("");
+    // const [clientCompany, setCompany] = useState("");
     const [email, setEmail] = useState("");
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
@@ -62,16 +62,21 @@ function Contracts(props) {
        const contracts = firebase.database().ref("contracts/" + userId);
        const contract = {
         //    user: userId,
-           name: clientName,
-           company: clientCompany,
+          //  name: clientName,
+          //  company: clientCompany,
            email: email,
            project: projectName,
            description: description
        }
-       if (clientName != "" && clientCompany != "" && email != "" && projectName != "" && description != "") {
+       if (
+        //  clientName != "" && 
+      //  clientCompany != "" && 
+       email != "" && 
+       projectName != "" 
+       && description != "") {
         contracts.push(contract);
-        setClientName("");
-        setCompany("");
+        // setClientName("");
+        // setCompany("");
         setEmail("");
         setProjectName("");
         setDescription("");
@@ -94,7 +99,7 @@ function Contracts(props) {
             Contract Form
           </Typography>
           <form className={classes.form} noValidate>
-          <TextField
+          {/* <TextField
               variant="outlined"
               margin="normal"
               required
@@ -105,8 +110,8 @@ function Contracts(props) {
               autoComplete="name"
               value={clientName}
               onChange={e => setClientName(e.target.value)}
-            />
-            <TextField
+            /> */}
+            {/* <TextField
               variant="outlined"
               margin="normal"
               required
@@ -117,7 +122,7 @@ function Contracts(props) {
               autoComplete="companyName"
               value={clientCompany}
               onChange={e => setCompany(e.target.value)}
-            />
+            /> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -165,7 +170,7 @@ function Contracts(props) {
               className={classes.submit}
               onClick={handleClick}
             >
-              Submit
+              Upload
             </Button>
           </form>
         </div>
