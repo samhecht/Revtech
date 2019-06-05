@@ -11,7 +11,7 @@ import SignUpForm from './SignUpForm';
 import InfoForm from './InfoForm';
 import BioForm from './BioForm';
 import firebase from '../firebase/firebase.js';
-import Navbar from './../components/Navbar.js';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ['Create an account', 'Add Github and Linkedin', 'Write a short bio'];
+  return ['Create account', 'Include websites', 'Add a bio'];
 }
 
 
@@ -37,17 +37,29 @@ function SignUpNew() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
+  const [github, setGithub] = useState("");
+  const [bio, setBio] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [finished, setFinished] = useState(false);
+
   const steps = getSteps();
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       // Login with email and password
       case 0:
-        return <SignUpForm setParentEmail={setEmail} setParentPwd={setPwd} />;
+        return (<SignUpForm 
+                  setParentEmail={setEmail} 
+                  setParentPwd={setPwd} 
+                  setParentFirstName={setFirstName}
+                  setParentLastName={setLastName}
+                />);
       case 1:
-        return <InfoForm/>;
+        return <InfoForm setParentLinkedIn={setLinkedIn} setParentGithub={setGithub} />;
       case 2:
-        return <BioForm/>;
+        return <BioForm setParentBio={setBio} />;
       default:
         return 'Uknown stepIndex';
     }
@@ -55,15 +67,28 @@ function SignUpNew() {
 
   function handleNext() {
     if (activeStep === 0) {
-        console.log(email);
+        // need to do some input validation
         firebase.auth().createUserWithEmailAndPassword(email, pwd).then(() => {
             // console.log(firebase.auth().currentUser);
         })
         .catch(() => {
             console.log("error creating user");
         })
-        
-        // handle firebase signup
+    }
+    if (activeStep === 2) {
+      let currUser = {
+        userId: firebase.auth().currentUser.uid,
+        email: firebase.auth().currentUser.email,
+        first: firstName,
+        last: lastName,
+        github: github,
+        linkedIn: linkedIn,
+        bio: bio,
+        permissions: "student",
+      }
+      const userRef = firebase.database().ref("students");
+      userRef.push(currUser);
+      setFinished(true);
     }
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   }
@@ -76,8 +101,10 @@ function SignUpNew() {
     setActiveStep(0);
   }
 
+  if (finished) {
+    return <Redirect to="/Marketplace" />;
+  }
   return (
-    <div><Navbar/>
     <div className={classes.root} style={{marginLeft: "5%"}}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
@@ -111,7 +138,6 @@ function SignUpNew() {
           </div>
         )}
       </div>
-    </div>
     </div>
   );
 }
