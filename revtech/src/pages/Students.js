@@ -40,25 +40,7 @@ function Students(){
             >
                 Students
             </Typography>
-            {/* <Grid container spacing={4}>
-            <Grid item xs>
-            <MediaCard/>
-            </Grid>
-            <Grid item xs>
-            <MediaCard/>
-            </Grid>
-            <Grid item xs>
-            <MediaCard/>
-            </Grid>
-            <Grid item xs>
-            <MediaCard/>
-            </Grid>
-            <Grid item xs>
-            <MediaCard/>
-            </Grid>
-        
-
-            </Grid> */}
+ 
             <Grid container spacing={4}>
                       {arr.map(person => (
             <Grid item xs>
