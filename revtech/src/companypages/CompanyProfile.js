@@ -36,36 +36,6 @@ export default class CompanyProfile extends React.Component {
             if (user) {
                 let id = user.uid;
                 this.setState({ authUser : id});
-                // console.log(user.uid);
-                // console.log(this.state.authUser);
-                // console.log("i have a user");
-                // console.log(id);
-
-                // contractsRef.on('value', (snapshot) => {
-                //     let contracts = [];
-                //     let allContracts = snapshot.val();
-                //     for (let user in allContracts) {
-                //         if (user === this.state.authUser) {
-                //             console.log(user);
-                //             for (let contract in allContracts[user]) {
-                //                 let c = {
-                //                     userid: user,
-                //                     contractid : contract,
-                //                     date: allContracts[user][contract].date,
-                //                     time: allContracts[user][contract].time,
-                //                     project: allContracts[user][contract].project,
-                //                     description: allContracts[user][contract].description,
-                //                 }
-                //                 // console.log(c);
-                //                 contracts.push(c);
-                //             }
-                //         }
-                //     }
-                //     this.setState({
-                //         contracts : contracts
-                //     })
-                // })
-
                 contractsRef.on('value', (snapshot) => {
                     let contracts = [];
                     let allContracts = snapshot.val();
@@ -78,8 +48,10 @@ export default class CompanyProfile extends React.Component {
                                 companyid: allContracts[contract].companyid,
                                 date: allContracts[contract].date,
                                 time: allContracts[contract].time,
+                                email: allContracts[contract].email,
                                 project: allContracts[contract].project,
                                 description: allContracts[contract].description,
+                                status: ("pending"), // not approved yet
                             }
                             contracts.push(pushContract);
                             // console.log(pushContract);
@@ -124,7 +96,7 @@ export default class CompanyProfile extends React.Component {
         <Navbar/>
         <Container component="main" maxWidth="md">
             <h1> Contracts</h1>
-            {this.state.contracts.map( (contract, id) => (
+            {this.state.contracts.map((contract, id) => (
                 <ExpansionPanel key={id}>
                     <ExpansionPanelSummary 
                     // expandIcon={<ExpandMoreIcon />}
