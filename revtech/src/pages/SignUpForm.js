@@ -94,7 +94,6 @@ export default function SignIn(props) {
             name="email"
             autoComplete="name"
             onChange={handleLastName}
-            autoFocus
         />
           <TextField
             variant="outlined"
@@ -106,7 +105,6 @@ export default function SignIn(props) {
             name="email"
             autoComplete="email"
             onChange={handleEmail}
-            autoFocus
           />
           <TextField
             variant="outlined"

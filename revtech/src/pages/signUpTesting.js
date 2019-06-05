@@ -66,29 +66,33 @@ function SignUpNew() {
   }
 
   function handleNext() {
-    if (activeStep === 0) {
-        // need to do some input validation
-        firebase.auth().createUserWithEmailAndPassword(email, pwd).then(() => {
-            // console.log(firebase.auth().currentUser);
+    if (activeStep === 2) {
+      firebase.auth()
+      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        firebase.auth().createUserWithEmailAndPassword(email, pwd)
+        .then(() => {
+          // created a user now add everything to the db and redirect
+          let currUser = {
+            userId: firebase.auth().currentUser.uid,
+            email: firebase.auth().currentUser.email,
+            first: firstName,
+            last: lastName,
+            github: github,
+            linkedIn: linkedIn,
+            bio: bio,
+            permissions: "student",
+          }
+          const userRef = firebase.database().ref("students");
+          userRef.push(currUser);
+          setFinished(true);
         })
         .catch(() => {
             console.log("error creating user");
-        })
-    }
-    if (activeStep === 2) {
-      let currUser = {
-        userId: firebase.auth().currentUser.uid,
-        email: firebase.auth().currentUser.email,
-        first: firstName,
-        last: lastName,
-        github: github,
-        linkedIn: linkedIn,
-        bio: bio,
-        permissions: "student",
-      }
-      const userRef = firebase.database().ref("students");
-      userRef.push(currUser);
-      setFinished(true);
+        });
+      });
+      
+      
     }
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   }
@@ -116,15 +120,14 @@ function SignUpNew() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            <Typography className={classes.instructions}>All steps completed. Redirect. . .</Typography>
           </div>
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
               <Button
-                disabled={activeStep === 0}
+                disabled={activeStep === 0 || activeStep === 1}
                 onClick={handleBack}
                 className={classes.backButton}
               >
