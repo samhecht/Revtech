@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Grid from '@material-ui/core/Grid';
@@ -55,19 +56,35 @@ function Contracts(props) {
     const [email, setEmail] = useState("");
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
-    const [user, setUser] = useState("");
+
+    const [error, setError] = useState("");
+
+
    
     const handleClick = (e) => {
        e.preventDefault();
+       let today = new Date();
+       // Date & Time
+       let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+        let date = mm + '-' + dd + '-' + yyyy;
+        let time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, })
+
        var userId = firebase.auth().currentUser.uid;
-       const contracts = firebase.database().ref("contracts/" + userId);
+       const contracts = firebase.database().ref("contracts/");
+
        const contract = {
         //    user: userId,
           //  name: clientName,
           //  company: clientCompany,
-           email: email,
-           project: projectName,
-           description: description
+          companyid : userId,
+          date : date,
+          time : time,
+          email: email,
+          project: projectName,
+          description: description,
+          // approval: false, // for admin to approve / disapprove
        }
        if (
         //  clientName != "" && 
@@ -81,7 +98,9 @@ function Contracts(props) {
         setEmail("");
         setProjectName("");
         setDescription("");
-       } 
+       } else {
+         setError("Please fill out all input fields.");
+       }
     //    To-do display error message
        
     };
@@ -136,6 +155,7 @@ function Contracts(props) {
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
+            {/* <FormHelperText id="my-helper-text">{error}</FormHelperText> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -148,6 +168,7 @@ function Contracts(props) {
               value={projectName}
               onChange={e => setProjectName(e.target.value)}
             />
+            {/* <FormHelperText id="my-helper-text">{error}</FormHelperText> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -162,7 +183,7 @@ function Contracts(props) {
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
-
+            <FormHelperText id="my-helper-text">{error}</FormHelperText>
             <Button
               type="submit"
               fullWidth

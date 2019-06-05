@@ -40,22 +40,49 @@ export default class CompanyProfile extends React.Component {
                 // console.log(this.state.authUser);
                 // console.log("i have a user");
                 // console.log(id);
+
+                // contractsRef.on('value', (snapshot) => {
+                //     let contracts = [];
+                //     let allContracts = snapshot.val();
+                //     for (let user in allContracts) {
+                //         if (user === this.state.authUser) {
+                //             console.log(user);
+                //             for (let contract in allContracts[user]) {
+                //                 let c = {
+                //                     userid: user,
+                //                     contractid : contract,
+                //                     date: allContracts[user][contract].date,
+                //                     time: allContracts[user][contract].time,
+                //                     project: allContracts[user][contract].project,
+                //                     description: allContracts[user][contract].description,
+                //                 }
+                //                 // console.log(c);
+                //                 contracts.push(c);
+                //             }
+                //         }
+                //     }
+                //     this.setState({
+                //         contracts : contracts
+                //     })
+                // })
+
                 contractsRef.on('value', (snapshot) => {
                     let contracts = [];
                     let allContracts = snapshot.val();
-                    for (let user in allContracts) {
-                        if (user === this.state.authUser) {
-                            console.log(user);
-                            for (let contract in allContracts[user]) {
-                                let c = {
-                                    userid: user,
-                                    contractid : contract,
-                                    project: allContracts[user][contract].project,
-                                    description: allContracts[user][contract].description,
-                                }
-                                // console.log(c);
-                                contracts.push(c);
+                    for (let contract in allContracts) {
+                        // console.log(contract);
+                        // console.log(allContracts[contract].companyid);
+                        if (allContracts[contract].companyid === this.state.authUser) {
+                            let pushContract = {
+                                contractid: contract,
+                                companyid: allContracts[contract].companyid,
+                                date: allContracts[contract].date,
+                                time: allContracts[contract].time,
+                                project: allContracts[contract].project,
+                                description: allContracts[contract].description,
                             }
+                            contracts.push(pushContract);
+                            // console.log(pushContract);
                         }
                     }
                     this.setState({
@@ -67,7 +94,7 @@ export default class CompanyProfile extends React.Component {
             }
         });
 
-            // All Contracts for every user
+            // Displays All Contracts for every user
         // contractsRef.on('value', (snapshot) => {
         //     // console.log(snapshot.val())
         //      let items = snapshot.val();
@@ -84,8 +111,8 @@ export default class CompanyProfile extends React.Component {
         // console.log(this.state.authUser);
     }
 
-    handleDelete = (userid, contractid) => {
-        return firebase.database().ref('contracts/' + userid).child(contractid).remove();
+    handleDelete = (contractid) => {
+        return firebase.database().ref('contracts/').child(contractid).remove();
     }
 
     render() {
@@ -104,12 +131,19 @@ export default class CompanyProfile extends React.Component {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                        <Typography className={contract.project}>{contract.project}</Typography>
-                        <Button onClick={() => this.handleDelete(contract.userid, contract.contractid)}>X</Button>
+                        <Typography className={contract.project}>
+                        Date: {contract.date}
+                        Time: {contract.time} 
+                        </Typography>
+                        <Typography>
+                        {contract.project}
+                        </Typography>
+                        <Button onClick={() => this.handleDelete(contract.contractid)}>X</Button>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Typography>
-                            Description: {contract.description}
+                            Description: {contract.description} <br/>
+                            Email: {contract.email} <br/>
                         </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
