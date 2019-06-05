@@ -6,7 +6,7 @@ import CompanyProfile from './companypages/CompanyProfile.js'
 import Contract from './companypages/Contract.js'
 import Students from './pages/Students.js'
 import SignIn from './pages/SignIn'
-import SignUp from './pages/SignUp.js'
+import SignUpNew from './pages/signUpTesting.js'
 import StepperSignUp from './pages/StepperSignUp'
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
@@ -54,7 +54,7 @@ class App extends React.Component{
         <Route exact path="/Students" component={Students}/>
         <Route path="/SignIn" exact component={SignIn} />
 
-        <Route path="/SignUp" exact component={StepperSignUp} />
+        <Route path="/SignUp" exact component={SignUpNew} />
         {/* <Route path="/StepperSignUp" exact component={StepperSignUp} /> */}
 
        {/* <Route path="/SignUp" exact component={SignUp} /> */}
