@@ -45,6 +45,9 @@ class App extends React.Component{
 
     return (
       <div className="App">
+      <header>
+        <title>Hello</title>
+      </header>
 
       <Router>
         <Route exact path="/" component={Home}/>

@@ -7,7 +7,7 @@ import firebase from '../firebase/firebase'
 import { signOut } from "../firebase/firebase";
 import { Box } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import logo from '../images/logo.png';
+import logo from '../images/logo-white.png';
 
 
 const useStyles = makeStyles(theme => ({
@@ -61,9 +61,11 @@ function Navbar(props){
       >
         <Box
           marginLeft="5%"
+          display='flex'
+          flex-direction='row'
         >
+          <Avatar alt="logo" src={logo}></Avatar>
           <Link style={linkStyle} to="/">
-            <Avatar alt="logo" src={logo}></Avatar>
             <Typography variant="h4" to="/" >
               RevTek
             </Typography>

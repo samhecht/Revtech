@@ -3,7 +3,7 @@ import Navbar from './../components/Navbar.js'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import logo from './../../images/logo.png';
+
 
 const useStyles = makeStyles({
   root: {
