@@ -58,7 +58,7 @@ export default function InfoForm() {
             id="email"
             label="Github"
             name="email"
-            autoComplete="github"
+           // autoComplete="github"
             autoFocus
           />
           <TextField
@@ -68,9 +68,9 @@ export default function InfoForm() {
             fullWidth
             name="password"
             label="LinkdIn"
-            type="password"
+            //type="password"
             id="password"
-            autoComplete="current-password"
+            //autoComplete="current-password"
           />
         </form>
       </div>
