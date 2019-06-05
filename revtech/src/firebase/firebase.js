@@ -12,6 +12,23 @@ const config = {
 };
 
 firebase.initializeApp(config);
+export async function signIn({ email, pwd }) {
+  await firebase
+    .auth()
+    .setPersistence(
+        firebase.auth.Auth.Persistence.LOCAL
+    );
+  await firebase.auth().signInWithEmailAndPassword(email, pwd);
+}
+
+export async function signUp({ email, pwd }) {
+  await firebase
+    .auth()
+    .setPersistence(
+        firebase.auth.Auth.Persistence.LOCAL
+    );
+  await firebase.auth().createUserWithEmailAndPassword(email, pwd);
+}
 
 export async function signOut() {
   await firebase.auth().signOut();

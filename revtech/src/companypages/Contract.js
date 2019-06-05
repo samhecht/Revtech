@@ -12,11 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import firebase from "./../firebase/firebase";
+import firebase from "../firebase/firebase";
 import Snackbar from "@material-ui/core/Snackbar";
 import { Link, withRouter } from "react-router-dom";
 
-import Navbar from './../components/Navbar.js';
+import Navbar from '../components/Navbar.js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -55,6 +55,7 @@ function Contracts(props) {
     const [email, setEmail] = useState("");
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
+    const [user, setUser] = useState("");
    
     const handleClick = (e) => {
        e.preventDefault();

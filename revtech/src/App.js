@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home.js'
 import Companies from './pages/Companies.js'
-import Contracts from './pages/Contracts.js'
+import CompanyProfile from './companypages/CompanyProfile.js'
+import Contract from './companypages/Contract.js'
 import Students from './pages/Students.js'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp.js'
@@ -14,8 +15,8 @@ import Marketplace from './userpages/Marketplace';
 
 class App extends React.Component{
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       test: "",
     }
@@ -41,13 +42,15 @@ class App extends React.Component{
     //     <p>{this.state.test}</p>
     //   )
     // }
+
     return (
       <div className="App">
 
       <Router>
         <Route exact path="/" component={Home}/>
         <Route exact path="/Companies" component={Companies}/>
-        <Route exact path="/Contracts" component={Contracts}/>
+        <Route exact path="/CompanyProfile" component={CompanyProfile}/>
+        <Route exact path="/Contract" component={Contract}/>
         <Route exact path="/Students" component={Students}/>
         <Route path="/SignIn" exact component={SignIn} />
 

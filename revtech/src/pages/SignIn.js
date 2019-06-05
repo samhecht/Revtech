@@ -65,7 +65,7 @@ const { history } = props;
   const [message, setMessage] = useState("");
 
 
-  const handleSignIn = async(e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
     console.log(email);
     console.log(password);
