@@ -12,6 +12,8 @@ import InfoForm from './InfoForm';
 import BioForm from './BioForm';
 import firebase from '../firebase/firebase.js';
 import { Redirect } from 'react-router-dom';
+import Navbar from './../components/Navbar.js';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -109,6 +111,8 @@ function SignUpNew() {
     return <Redirect to="/Marketplace" />;
   }
   return (
+    <div>
+    <Navbar/>
     <div className={classes.root} style={{marginLeft: "5%"}}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
@@ -141,6 +145,7 @@ function SignUpNew() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }
