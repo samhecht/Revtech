@@ -11,6 +11,7 @@ import SignUpForm from './SignUpForm';
 import InfoForm from './InfoForm';
 import BioForm from './BioForm';
 import firebase from '../firebase/firebase.js';
+import Navbar from './../components/Navbar.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Create an account', 'Add Github and Linkedin', 'Write a short bio'];
 }
 
 
@@ -76,6 +77,7 @@ function SignUpNew() {
   }
 
   return (
+    <div><Navbar/>
     <div className={classes.root} style={{marginLeft: "5%"}}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
@@ -109,6 +111,7 @@ function SignUpNew() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }
