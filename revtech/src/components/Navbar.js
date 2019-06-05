@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import firebase from '../firebase/firebase'
 import { signOut } from "../firebase/firebase";
 import { Box } from '@material-ui/core';
-
+import Avatar from '@material-ui/core/Avatar';
+import logo from '../images/logo.png';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,7 +43,7 @@ function Navbar(props){
 
     const navBarStyle = {
       backgroundColor: '#73C2FB',
-      padding: "2% 1%",
+      padding: "1.5% 1%",
     }
 
     const linkStyle = {
@@ -62,6 +63,7 @@ function Navbar(props){
           marginLeft="5%"
         >
           <Link style={linkStyle} to="/">
+            <Avatar alt="logo" src={logo}></Avatar>
             <Typography variant="h4" to="/" >
               RevTek
             </Typography>
