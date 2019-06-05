@@ -36,9 +36,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function InfoForm() {
+export default function InfoForm(props) {
     const classes = useStyles();
     console.log(firebase.auth().currentUser);
+
+    const handleGithub = (event) => {
+      props.setParentGithub(event.target.value);
+    }
+
+    const handleLinkedIn = (event) => {
+      props.setParentLinkedIn(event.target.value);
+    }
     return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,6 +67,7 @@ export default function InfoForm() {
             label="Github"
             name="email"
            // autoComplete="github"
+           onChange={handleGithub}
             autoFocus
           />
           <TextField
@@ -70,6 +79,7 @@ export default function InfoForm() {
             label="LinkdIn"
             //type="password"
             id="password"
+            onChange={handleLinkedIn}
             //autoComplete="current-password"
           />
         </form>
