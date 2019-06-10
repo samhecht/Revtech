@@ -66,10 +66,12 @@ function SignUpNew() {
   }
 
   function handleNext() {
+    if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
     if (activeStep === 2) {
       firebase.auth()
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
+        
         firebase.auth().createUserWithEmailAndPassword(email, pwd)
         .then(() => {
           // created a user now add everything to the db and redirect
@@ -94,7 +96,9 @@ function SignUpNew() {
       
       
     }
+    
     setActiveStep(prevActiveStep => prevActiveStep + 1);
+  }
   }
 
   function handleBack() {

@@ -73,6 +73,11 @@ const { history } = props;
 
   const handleSignUp = (e) => {
     e.preventDefault();
+    
+    if(name === "" || email ==="" || password ===""){
+      setMessage("Please enter all the required fields")
+    }
+    else{
     console.log(email);
     console.log(password);
 
@@ -81,6 +86,7 @@ const { history } = props;
         console.log("done")
         const usersRef = firebase.database().ref('companies');
         const data = {
+          companyid: firebase.auth().currentUser.uid,
           name: name,
           email: email,
           
@@ -96,7 +102,7 @@ const { history } = props;
       })
 
      
-
+    }
 
   }
 

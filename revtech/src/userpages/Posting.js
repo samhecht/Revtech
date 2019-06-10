@@ -10,7 +10,9 @@ import firebase from '../firebase/firebase';
 
 
 export default function Posting(props) {
+
     const [comments, setComments] = useState([]);
+
     const [hideComments, setHideComments] = useState(true);
 
     const handleClick = () => {
@@ -20,10 +22,12 @@ export default function Posting(props) {
             setHideComments(true);
         }
     }
+
+    console.log(props.height)
     const paperStyle = {
-        width: '60%',
-        height: '250px',
-        marginLeft: '20%',
+        width: props.width,
+        height: props.height,
+        marginLeft: props.leftMargin,
         marginTop: '4%',
         textAlign: 'center'
     }
@@ -46,6 +50,7 @@ export default function Posting(props) {
         });
         setComments(tempComments);
     })
+
 
 
     return (
@@ -72,7 +77,7 @@ export default function Posting(props) {
                         justifyContent='flex-end'
                         marginRight='5%'
                     >
-                    <ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>
+                    {props.arrow? (<ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>):<div></div>}
                     </Box>
                 </Box>
             </Paper>

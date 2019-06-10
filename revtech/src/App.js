@@ -10,6 +10,10 @@ import SignUpNew from './pages/signUpTesting.js'
 import SignUp from './pages/SignUp.js'
 import StepperSignUp from './pages/StepperSignUp'
 import SignUpChoice from './pages/SignUpChoice.js'
+
+import ProfilePage from './pages/ProfilePage'
+
+
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebase from "./firebase/firebase.js";
 import Marketplace from './userpages/Marketplace';
@@ -57,6 +61,7 @@ class App extends React.Component{
         <Route path="/SignUpCompany" exact component={SignUp} />
         <Route path="/SignUpStudent" exact component={SignUpNew} />
         <Route path="/SignUp" exact component={SignUpChoice} />
+        <Route path="/profilepage" exact component={ProfilePage} />
         {/* <Route path="/StepperSignUp" exact component={StepperSignUp} /> */}
 
        {/* <Route path="/SignUp" exact component={SignUp} /> */}
