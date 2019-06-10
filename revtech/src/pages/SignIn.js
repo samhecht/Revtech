@@ -70,6 +70,12 @@ const { history } = props;
     console.log(email);
     console.log(password);
 
+    if(email ==="" || password ===""){
+      setMessage("Please enter all the required fields")
+    }
+
+    else{
+
     const promise = firebase.auth().signInWithEmailAndPassword(email, password);
     promise.then((result)=>{
         console.log("done")
@@ -81,7 +87,7 @@ const { history } = props;
         setMessage(error.message);
       })
 
-
+    }
   }
 
  return (
