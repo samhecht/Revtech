@@ -5,7 +5,7 @@ import { Box } from '@material-ui/core';
 
 
 export default function Comment(props) {
-
+    //eveything should be nice
     if (props.hidden){
         return <div></div>
     }
