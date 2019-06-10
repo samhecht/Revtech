@@ -68,12 +68,7 @@ function SignUpNew() {
   }
 
   function handleNext() {
-    if(activeStep ==0){
-      console.log('here')
-    }
-    if(activeStep ==1){
-      console.log('1')
-    }
+    if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
     if (activeStep === 2) {
       firebase.auth()
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -105,6 +100,7 @@ function SignUpNew() {
     }
     
     setActiveStep(prevActiveStep => prevActiveStep + 1);
+  }
   }
 
   function handleBack() {
