@@ -17,7 +17,7 @@ export default function Marketplace() {
             let contracts = snapshot.val();
             let keys = Object.keys(contracts);
             keys.forEach(key => {
-                tempPostings.push(<Posting key={Math.random()} contract={contracts[key]} parentId={key} leftMargin={'20%'} width={'60%'} height={'250px'} />);
+                tempPostings.push(<Posting key={Math.random()} contract={contracts[key]} parentId={key} leftMargin={'20%'} width={'60%'} height={'250px'} arrow/>);
             })
             setPostings(tempPostings);
         });
