@@ -165,7 +165,7 @@ export default class CompanyProfile extends React.Component {
             <Table>
             <TableBody>
             <TableRow>
-                <TableCell component="th"> Time</TableCell>
+                {/* <TableCell component="th"> Time</TableCell> */}
                 <TableCell  component="th"> Date </TableCell>
                 <TableCell  component="th"> Name </TableCell>
                 <TableCell  component="th"> Description </TableCell>
@@ -175,13 +175,13 @@ export default class CompanyProfile extends React.Component {
             </TableRow>
             {this.state.contracts.map((contract, id) => (
                 <TableRow key={id}>
-                    <TableCell>{contract.time}</TableCell>
+                    {/* <TableCell>{contract.time}</TableCell> */}
                     <TableCell>{contract.date}</TableCell>
                     <TableCell>{contract.project}</TableCell>
                     <TableCell>{contract.trimmedDescription}</TableCell>
                     <TableCell>{contract.status}</TableCell>
-                    <TableCell><Button onClick={() => this.handleEditClick(id)}>Edit</Button></TableCell>
-                    <TableCell><Button onClick={() => this.handleDelete(contract.contractid)}>X</Button></TableCell>
+                    <TableCell><Button onClick={() => this.handleEditClick(id)}><i class="material-icons">create</i></Button></TableCell>
+                    <TableCell><Button onClick={() => this.handleDelete(contract.contractid)}><i class="material-icons">delete_forever</i></Button></TableCell>
                 </TableRow>
             ))}
             </TableBody>
