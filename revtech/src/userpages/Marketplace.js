@@ -1,12 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Posting from './Posting';
 import { Box, Typography } from '@material-ui/core';
 import Navbar from '../components/Navbar';
+import firebase from '../firebase/firebase';
 
 export default function Marketplace() {
+    const [postings, setPostings] = useState([]);
     const titleStyle = {
         marginTop: "5%",
     }
+
+    useEffect(() => {
+        const contractRef = firebase.database().ref('/contracts');
+        let tempPostings = [];
+        contractRef.on("value", snapshot => {
+            let contracts = snapshot.val();
+            let keys = Object.keys(contracts);
+            keys.forEach(key => {
+                tempPostings.push(<Posting key={Math.random()} contract={contracts[key]} parentId={key} leftMargin={'20%'} width={'60%'} height={'250px'} />);
+            })
+            setPostings(tempPostings);
+        });
+    },[]);
+
     return (
         <div>
             <Navbar/>
@@ -22,8 +38,8 @@ export default function Marketplace() {
                 justifyContent='center'
             >
 
-                <Posting leftMargin={'20%'} width={'60%'} height={'250px'} arrow={true}/>
-                <Posting leftMargin={'20%'} width={'60%'} height={'250px'}/>
+                {postings}
+
             </Box>
             <div style={{
                 marginTop: '20%',
