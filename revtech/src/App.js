@@ -6,6 +6,7 @@ import Students from './pages/Students.js'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp.js'
 import StepperSignUp from './pages/StepperSignUp'
+import ProfilePage from './pages/ProfilePage'
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebase from "./firebase/firebase.js";
@@ -50,9 +51,10 @@ class App extends React.Component{
         <Route path="/SignIn" exact component={SignIn} />
 
         <Route path="/SignUp" exact component={StepperSignUp} />
+        <Route path="/profile" exact component={ProfilePage} />
         {/* <Route path="/StepperSignUp" exact component={StepperSignUp} /> */}
 
-//         <Route path="/SignUp" exact component={SignUp} />
+         <Route path="/SignUp" exact component={SignUp} />
         <Route path="/Marketplace" exact component={Marketplace}/>
 
       </Router>
