@@ -9,29 +9,49 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import IconButton from '@material-ui/core/IconButton';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import LastPageIcon from '@material-ui/icons/LastPage';
+import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+import Label from '@material-ui/core/Input';
+import Modal from '@material-ui/core/Modal';
 
 import firebase from "../firebase/firebase";
 import Navbar from '../components/Navbar.js';
 
-
+let modalStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+}
+let modalFormStyle = {
+    color: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '40%',
+    width: '50%',
+    backgroundColor: 'white'
+}
 export default class CompanyProfile extends React.Component {
     state = {
+        // List of all Contracts
         contracts : [],
-        authUser: null,
+        authUser: null, 
+
+        // Editing Contracts
+        editing : false,
+        editContract: [],
+        editContractName : "",
+        editContractDescription : ""
     }
-
+    
     componentDidMount() {
-        // project name, project description 
-
-        // const userId = firebase.auth().currentUser.uid;
-
         const contractsRef = firebase.database().ref('contracts');
-
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 let id = user.uid;
@@ -43,6 +63,12 @@ export default class CompanyProfile extends React.Component {
                         // console.log(contract);
                         // console.log(allContracts[contract].companyid);
                         if (allContracts[contract].companyid === this.state.authUser) {
+                            let trimmed = "";
+                            if (allContracts[contract].description.length >= 75) {
+                                trimmed = allContracts[contract].description.substring(0, 75) + "..."
+                            } else {
+                                trimmed = allContracts[contract].description
+                            }
                             let pushContract = {
                                 contractid: contract,
                                 companyid: allContracts[contract].companyid,
@@ -51,6 +77,7 @@ export default class CompanyProfile extends React.Component {
                                 email: allContracts[contract].email,
                                 project: allContracts[contract].project,
                                 description: allContracts[contract].description,
+                                trimmedDescription: trimmed,
                                 status: ("pending"), // not approved yet
                             }
                             contracts.push(pushContract);
@@ -61,6 +88,7 @@ export default class CompanyProfile extends React.Component {
                         contracts : contracts
                     })
                 })
+                
             } else {
                console.log("i have no user");
             }
@@ -87,45 +115,94 @@ export default class CompanyProfile extends React.Component {
         return firebase.database().ref('contracts/').child(contractid).remove();
     }
 
-    render() {
-        console.log(this.state.user)
+    handleCloseEdit = () => {
+        console.log("closed edits")
+        this.setState ({
+            editing: false
+        })
         
+    }
+
+    handleEditClick = (contractid) => {
+       let editContract = this.state.contracts[contractid]
+       let editContractName = this.state.contracts[contractid].project
+       let editContractDescription = this.state.contracts[contractid].description
+       this.setState({
+        editing : true,
+        editContract : editContract,
+        editContractName : editContractName,
+        editContractDescription : editContractDescription
+       })
+    }
+
+    submitEdits = (e) => {
+        e.preventDefault();
+        let contractId = this.state.editContract.contractid
+        const contractRef = firebase.database().ref('contracts/').child(contractId);
+        contractRef.update({
+            project: this.state.editContractName,
+            description: this.state.editContractDescription
+        })
+        this.setState({
+            editing : false,
+        })
+        // console.log("edits submitted")
+    }
+
+    updateField = (field, value) => {
+        this.setState({
+         [field]: value
+        })
+    }
+
+    render() {
         return (
         
         <div>
         <Navbar/>
-        <Container component="main" maxWidth="md">
+        <Container component="main" maxWidth="lg">
             <h1> Contracts</h1>
+            <Table>
+            <TableBody>
+            <TableRow>
+                <TableCell component="th"> Time</TableCell>
+                <TableCell  component="th"> Date </TableCell>
+                <TableCell  component="th"> Name </TableCell>
+                <TableCell  component="th"> Description </TableCell>
+                <TableCell  component="th" align="center"> Edit </TableCell>
+                <TableCell  component="th" align="center"> Delete </TableCell>
+            </TableRow>
             {this.state.contracts.map((contract, id) => (
-                <ExpansionPanel key={id}>
-                    <ExpansionPanelSummary 
-                    // expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    >
-                        <Typography className={contract.project}>
-                        Date: {contract.date}
-                        Time: {contract.time} 
-                        </Typography>
-                        <Typography>
-                        {contract.project}
-                        </Typography>
-                        <Button onClick={() => this.handleDelete(contract.contractid)}>X</Button>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <Typography>
-                            Description: {contract.description} <br/>
-                            Email: {contract.email} <br/>
-                        </Typography>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
+                <TableRow key={id}>
+                    <TableCell>{contract.time}</TableCell>
+                    <TableCell>{contract.date}</TableCell>
+                    <TableCell>{contract.project}</TableCell>
+                    <TableCell>{contract.trimmedDescription}</TableCell>
+                    <TableCell><Button onClick={() => this.handleEditClick(id)}>Edit</Button></TableCell>
+                    <TableCell><Button onClick={() => this.handleDelete(contract.contractid)}>X</Button></TableCell>
+                </TableRow>
             ))}
-        
+            </TableBody>
+            </Table>
+            {/* Can be made into a new component called Profile View */}
+            <Modal className="modal"
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={this.state.editing}
+                onClose={this.handleCloseEdit}
+                style={modalStyle}
+            >
+                <form style={modalFormStyle}>
+                    Project:
+                    <Input placeholder={this.state.editContractName} value={this.state.editContractName} onChange={e => this.updateField("editContractName", e.target.value)}></Input>
+                    Description:
+                    <TextField placeholder={this.state.editContractDescription} value={this.state.editContractDescription} onChange={e => this.updateField("editContractDescription", e.target.value)}></TextField>
+                    <Button onClick={this.submitEdits}>Submit</Button>
+                    <Button onClick={this.handleCloseEdit}>X</Button>
+                </form>
+            </Modal>
         </Container>
         </div>
         );
     }
    }
-    
-    // export default withRouter(CompanyProfile)
-    
