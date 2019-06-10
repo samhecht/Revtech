@@ -8,7 +8,7 @@ import Comment from './Comment';
 import CommentForm from './CommentForm';
 
 
-export default function Posting() {
+export default function Posting(props) {
 
     const [hideComments, setHideComments] = useState(true);
 
@@ -19,13 +19,16 @@ export default function Posting() {
             setHideComments(true);
         }
     }
+
+    console.log(props.height)
     const paperStyle = {
-        width: '60%',
-        height: '250px',
-        marginLeft: '20%',
+        width: props.width,
+        height: props.height,
+        marginLeft: props.leftMargin,
         marginTop: '4%',
         textAlign: 'center'
     }
+    
     return (
         <React.Fragment>
             
@@ -51,7 +54,7 @@ export default function Posting() {
                         justifyContent='flex-end'
                         marginRight='5%'
                     >
-                    <ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>
+                    {props.arrow? (<ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>):<div></div>}
                     </Box>
                 </Box>
             </Paper>

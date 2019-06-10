@@ -22,8 +22,8 @@ export default function Marketplace() {
                 justifyContent='center'
             >
 
-                <Posting/>
-                <Posting/>
+                <Posting leftMargin={'20%'} width={'60%'} height={'250px'} arrow={true}/>
+                <Posting leftMargin={'20%'} width={'60%'} height={'250px'}/>
             </Box>
             <div style={{
                 marginTop: '20%',

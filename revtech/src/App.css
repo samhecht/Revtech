@@ -54,3 +54,15 @@
   justify-content: center;
   min-width: 90%;
 }
+
+.profile1{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+/* .profile2{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+} */
