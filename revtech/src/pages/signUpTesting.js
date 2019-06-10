@@ -11,7 +11,7 @@ import BioForm from './BioForm';
 import firebase from '../firebase/firebase.js';
 import { Redirect } from 'react-router-dom';
 import Navbar from './../components/Navbar.js';
-
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +43,7 @@ function SignUpNew() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [finished, setFinished] = useState(false);
-
+  const [message, setMessage] = useState("");
   const steps = getSteps();
 
   function getStepContent(stepIndex) {
@@ -61,19 +61,36 @@ function SignUpNew() {
       case 2:
         return <BioForm setParentBio={setBio} />;
       default:
-        return 'Uknown stepIndex';
+        return 'Unknown stepIndex';
     }
   }
 
   function handleNext() {
+
     if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
+      if(activeStep == 0){
+      firebase.auth().createUserWithEmailAndPassword(email, pwd)
+      const promise = firebase.auth().createUserWithEmailAndPassword(email, pwd);
+      promise.then((result)=>{
+          console.log("done")
+          setActiveStep(prevActiveStep => prevActiveStep + 1);
+          
+        },
+        (error)=>{
+          console.log(error.message);
+          setMessage(error.message);
+        })
+      }
+      if (activeStep ==1){
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
+      }
     if (activeStep === 2) {
       firebase.auth()
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
         
-        firebase.auth().createUserWithEmailAndPassword(email, pwd)
-        .then(() => {
+        // firebase.auth().createUserWithEmailAndPassword(email, pwd)
+        // .then(() => {
           // created a user now add everything to the db and redirect
           let currUser = {
             userId: firebase.auth().currentUser.uid,
@@ -88,16 +105,20 @@ function SignUpNew() {
           const userRef = firebase.database().ref("students");
           userRef.push(currUser);
           setFinished(true);
-        })
-        .catch(() => {
-            console.log("error creating user");
-        });
+        // })
+        // .catch(() => {
+        //     console.log("error creating user");
+        // });
       });
       
-      
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
     }
+
     
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    
+  }
+  else{
+    setMessage("Please enter all the required fields")
   }
   }
 
@@ -147,6 +168,16 @@ function SignUpNew() {
           </div>
         )}
       </div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
+        open={!!message}
+        autoHideDuration={5000}
+        onClose={() => setMessage(null)}
+        message={<div>{message}</div>}
+      />
     </div>
     </div>
   );
