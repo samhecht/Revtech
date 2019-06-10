@@ -29,10 +29,10 @@ export default function Comment(props) {
                     justifyContent='space-evenly'
                 >
                 <Typography>
-                    Student Name
+                    {props.comment.userEmail}
                 </Typography>
                 <Typography style={commentStyle}>
-                    I commented to say how great I am!
+                    {props.comment.commentBody}
                 </Typography>
                 </Box>
             </Paper>

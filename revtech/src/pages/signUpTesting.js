@@ -1,5 +1,3 @@
-
-// for stepper
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';

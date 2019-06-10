@@ -10,7 +10,6 @@ import SignUpNew from './pages/signUpTesting.js'
 import SignUp from './pages/SignUp.js'
 import StepperSignUp from './pages/StepperSignUp'
 import SignUpChoice from './pages/SignUpChoice.js'
-
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebase from "./firebase/firebase.js";
 import Marketplace from './userpages/Marketplace';
