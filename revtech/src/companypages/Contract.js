@@ -84,7 +84,7 @@ function Contracts(props) {
           email: email,
           project: projectName,
           description: description,
-          // approval: false, // for admin to approve / disapprove
+          approved: "pending", // for admin to approve / disapprove
        }
        if (
         //  clientName != "" && 

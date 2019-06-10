@@ -23,6 +23,7 @@ import Modal from '@material-ui/core/Modal';
 
 import firebase from "../firebase/firebase";
 import Navbar from '../components/Navbar.js';
+import { Typography } from '@material-ui/core';
 
 let modalStyle = {
     display: 'flex',
@@ -30,10 +31,9 @@ let modalStyle = {
     alignItems: 'center'
 }
 let modalFormStyle = {
-    color: 'white',
     display: 'flex',
     flexDirection: 'column',
-    height: '40%',
+    height: '50%',
     width: '50%',
     backgroundColor: 'white'
 }
@@ -78,7 +78,7 @@ export default class CompanyProfile extends React.Component {
                                 project: allContracts[contract].project,
                                 description: allContracts[contract].description,
                                 trimmedDescription: trimmed,
-                                status: ("pending"), // not approved yet
+                                status: allContracts[contract].approved, // not approved yet
                             }
                             contracts.push(pushContract);
                             // console.log(pushContract);
@@ -160,7 +160,7 @@ export default class CompanyProfile extends React.Component {
         
         <div>
         <Navbar/>
-        <Container component="main" maxWidth="lg">
+        <Container component="main">
             <h1> Contracts</h1>
             <Table>
             <TableBody>
@@ -169,6 +169,7 @@ export default class CompanyProfile extends React.Component {
                 <TableCell  component="th"> Date </TableCell>
                 <TableCell  component="th"> Name </TableCell>
                 <TableCell  component="th"> Description </TableCell>
+                <TableCell  component="th"> Status </TableCell>
                 <TableCell  component="th" align="center"> Edit </TableCell>
                 <TableCell  component="th" align="center"> Delete </TableCell>
             </TableRow>
@@ -178,6 +179,7 @@ export default class CompanyProfile extends React.Component {
                     <TableCell>{contract.date}</TableCell>
                     <TableCell>{contract.project}</TableCell>
                     <TableCell>{contract.trimmedDescription}</TableCell>
+                    <TableCell>{contract.status}</TableCell>
                     <TableCell><Button onClick={() => this.handleEditClick(id)}>Edit</Button></TableCell>
                     <TableCell><Button onClick={() => this.handleDelete(contract.contractid)}>X</Button></TableCell>
                 </TableRow>
@@ -193,10 +195,21 @@ export default class CompanyProfile extends React.Component {
                 style={modalStyle}
             >
                 <form style={modalFormStyle}>
-                    Project:
-                    <Input placeholder={this.state.editContractName} value={this.state.editContractName} onChange={e => this.updateField("editContractName", e.target.value)}></Input>
-                    Description:
-                    <TextField placeholder={this.state.editContractDescription} value={this.state.editContractDescription} onChange={e => this.updateField("editContractDescription", e.target.value)}></TextField>
+                    <TextField 
+                    variant="outlined"
+                    margin="normal"
+                    label="Name"
+                    placeholder={this.state.editContractName} 
+                    value={this.state.editContractName} 
+                    onChange={e => this.updateField("editContractName", e.target.value)}>
+                    </TextField>
+                    <TextField
+                    variant="outlined"
+                    margin="normal"
+                    label="Description"
+                    multiline
+                    rows="10"
+                    placeholder={this.state.editContractDescription} value={this.state.editContractDescription} onChange={e => this.updateField("editContractDescription", e.target.value)}></TextField>
                     <Button onClick={this.submitEdits}>Submit</Button>
                     <Button onClick={this.handleCloseEdit}>X</Button>
                 </form>
