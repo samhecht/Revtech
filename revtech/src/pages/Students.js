@@ -18,7 +18,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import firebase from '../firebase/firebase';
-
+import axios from 'axios';
 import clsx from 'clsx';
 
 function Students(){
@@ -86,10 +86,6 @@ export default Students;
 
 
 
-function getStudentData(){
-
-    
-}
 
 
 function MediaCard(props) {
@@ -103,6 +99,18 @@ function MediaCard(props) {
       });
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [picUrl, setPicUrl] = React.useState(chip);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:9000")
+      .then(res => {
+        setPicUrl(res.data.image);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
 
   function handleExpandClick() {
@@ -115,7 +123,10 @@ function MediaCard(props) {
       <CardActionArea>
         <CardMedia
            className={classes.media}
-           image={chip}
+           image={picUrl}
+           style={{
+             height: '300px',
+           }}
            //title="Student Profile"
         />
         <CardContent>
