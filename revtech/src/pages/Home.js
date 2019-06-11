@@ -3,10 +3,14 @@ import Navbar from './../components/Navbar.js'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import hero from '../images/hero.jpg';
 import app from '../images/app.jpeg';
 import office from '../images/office.jpeg';
 import students from '../images/students.jpeg';
+import logo from '../images/logo.png';
+import { Link } from 'react-router-dom';
+import { withTheme } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -60,10 +64,25 @@ function Home() {
   }
 
   const heroTitle = {
-    fontSize: '55px'
+    fontSize: '60px',
+    fontWeight: 'normal',
+    marginBottom: '5px'
   }
   const heroTagline = {
-    fontSize: '24px'
+    fontSize: '30px',
+    fontWeight: 'normal'
+  }
+
+  const buttonStyle = {
+    backgroundColor: '#73C2FB',
+    // backgroundColor: '#FFA711',
+    width: '150px',
+    height: '70px',
+    fontSize: '24px',
+    color: 'white',
+    textTransform: 'capitalize',
+    borderRadius: '5%',
+    marginTop: '20px'
   }
 
   const section = {
@@ -75,8 +94,6 @@ function Home() {
     alignItems: 'center',
     marginTop: '150px',
     marginBottom: '150px',
-    // paddingLeft: '6%',
-    // paddingRight: '6%',
   }
 
   const info = {
@@ -107,18 +124,26 @@ function Home() {
   }
   const h3 = {
     textAlign: 'left',
-    lineHeight: '1.2'
+    lineHeight: '1.2',
+    textDecoration: 'underline',
+    textDecorationColor: '#73C2FB'
+    // color: '#73C2FB'
   }
   const h4 = {
     textAlign: 'left',
     fontSize: '26px',
-    marginTop: '20px',
+    marginTop: '25px',
     lineHeight: '2'
   }
   const imgStyle = {
     width: '75%',
-    // border: '1px solid hotpink',
+    boxShadow: '-15px 15px 30px #73C2FB',
     borderRadius:'50%'
+  }
+
+  const linkStyle = {
+    color: 'white',
+    textDecoration: 'none'
   }
   return (
     <div>
@@ -126,8 +151,9 @@ function Home() {
       <Box style={imageBoxStyle}>
         <Box style={overlayBoxStyle}>
           <Box style={overlayBoxText}>
-              <h1 style={heroTitle}>A tech hub for companies and students.</h1>
+              <h1 style={heroTitle}>A tech hub for students and companies</h1>
               <h2 style={heroTagline}>Discover top talent. Connect with industry professionals. Work on meaningful projects.</h2>
+              <Button style={buttonStyle}><Link style={linkStyle} to="/SignIn">Join Us</Link></Button>
           </Box>
         </Box>
 
