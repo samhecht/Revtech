@@ -9,6 +9,8 @@ import app from '../images/app.jpeg';
 import office from '../images/office.jpeg';
 import students from '../images/students.jpeg';
 import logo from '../images/logo.png';
+import { Link } from 'react-router-dom';
+import { withTheme } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -139,7 +141,10 @@ function Home() {
     borderRadius:'50%'
   }
 
-
+  const linkStyle = {
+    color: 'white',
+    textDecoration: 'none'
+  }
   return (
     <div>
       <Navbar/>
@@ -148,7 +153,7 @@ function Home() {
           <Box style={overlayBoxText}>
               <h1 style={heroTitle}>A tech hub for students and companies</h1>
               <h2 style={heroTagline}>Discover top talent. Connect with industry professionals. Work on meaningful projects.</h2>
-              <Button style={buttonStyle}>Join Us</Button>
+              <Button style={buttonStyle}><Link style={linkStyle} to="/SignIn">Join Us</Link></Button>
           </Box>
         </Box>
 
