@@ -84,7 +84,7 @@ function Contracts(props) {
           email: email,
           project: projectName,
           description: description,
-          // approval: false, // for admin to approve / disapprove
+          approved: "pending", // for admin to approve / disapprove
        }
        if (
         //  clientName != "" && 
@@ -119,30 +119,6 @@ function Contracts(props) {
             Contract Form
           </Typography>
           <form className={classes.form} noValidate>
-          {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="name"
-              label="Client Name"
-              type="name"
-              autoComplete="name"
-              value={clientName}
-              onChange={e => setClientName(e.target.value)}
-            /> */}
-            {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="companyName"
-              label="Company"
-              type="companyName"
-              autoComplete="companyName"
-              value={clientCompany}
-              onChange={e => setCompany(e.target.value)}
-            /> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -155,7 +131,6 @@ function Contracts(props) {
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
-            {/* <FormHelperText id="my-helper-text">{error}</FormHelperText> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -168,7 +143,6 @@ function Contracts(props) {
               value={projectName}
               onChange={e => setProjectName(e.target.value)}
             />
-            {/* <FormHelperText id="my-helper-text">{error}</FormHelperText> */}
             <TextField
               variant="outlined"
               margin="normal"
