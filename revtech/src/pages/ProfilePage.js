@@ -6,6 +6,7 @@ import { grey } from '@material-ui/core/colors';
 import Posting from './../userpages/Posting.js';
 import firebase from '../firebase/firebase.js';
 import EditTextfield from './editTextField'
+import ProfilePosting from './../userpages/ProfilePosting.js'
 
 const text = "Immediately regret falling into bathtub woops poop hanging from butt must get rid run run around house drag poop on floor maybe it comes off woops left brown marks on floor human slave clean lick butt now yet meow for stare out the window. Lick yarn hanging out of own butt. Stuff and things knock over christmas tree meow meow, i tell my human yet find empty spot in cupboard and sleep all day but i'm going to lap some water out of my master's cup meow";
 class ProfilePage extends React.Component {
@@ -77,7 +78,7 @@ class ProfilePage extends React.Component {
            {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} userKey = {this.state.userKey}/>: <div></div>}
            {/* <p style = {{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{this.state.bio}</p> */}
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Active Contracts</div>
-           <Posting leftMargin = {'0%'} width = {'90%'} height = {'200px'} arrow={false}/>
+           <ProfilePosting leftMargin = {'0%'} width = {'90%'} height = {'200px'} arrow={false}/>
            {/* {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} userKey = {this.state.userKey}/>: <div></div>} */}
           </div>
          
