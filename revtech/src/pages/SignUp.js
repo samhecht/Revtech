@@ -89,6 +89,7 @@ const { history } = props;
           companyid: firebase.auth().currentUser.uid,
           name: name,
           email: email,
+          permissions: 'company',
           
         }
         
