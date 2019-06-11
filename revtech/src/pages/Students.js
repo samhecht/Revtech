@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Navbar from './../components/Navbar.js'
 
 import Grid from '@material-ui/core/Grid';
@@ -17,10 +17,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import firebase from '../firebase/firebase';
 
 import clsx from 'clsx';
 
 function Students(){
+    const [students, setStudents] = useState([]);
+
     const titleStyle = {
         marginTop: "5%",
         marginBottom: '5%',
@@ -30,9 +33,28 @@ function Students(){
         marginRight: '10%',
         justifyContent: 'center'
     }
-    const arr = [1,2,3,4,5]
+
+    useEffect(() => {
+      const studentRef = firebase.database().ref('/students');
+      studentRef.on("value", snap => {
+        const studentObj = snap.val();
+        const studentKeys = Object.keys(studentObj);
+        let tempStudents = studentKeys.map(key => studentObj[key]);
+        setStudents(tempStudents);
+      });
+    }, []);
+    const renderStudents = () => {
+      const studentDisplay = students.map(student => {
         return (
-            <div>
+          <Grid item md={4}>
+            <MediaCard student={student} />
+          </Grid>
+        )
+      });
+      return studentDisplay;
+    }
+    return (
+          <div>
             <Navbar/>
             <Typography 
                 variant="h2"
@@ -40,19 +62,23 @@ function Students(){
             >
                 Students
             </Typography>
- 
-            <Grid container spacing={4}>
-                      {arr.map(person => (
-            <Grid item xs>
-            
-            <MediaCard/>
-            
-            
+            <Grid
+              container
+              spacing={3}
+              display='flex'
+              flexDirection='row'
+              justifyContent='space-evenly'
+              style={{
+                width: "100%",
+                textAlign: "center",
+                marginLeft: "4%"
+              }}
+            >
+            {renderStudents()}
             </Grid>
-          ))}
-          </Grid>
-            </div>
-        );
+            
+        </div>
+      );
     
 
 }
@@ -66,7 +92,7 @@ function getStudentData(){
 }
 
 
-function MediaCard() {
+function MediaCard(props) {
     const useStyles = makeStyles({
         card: {
           maxWidth: 345,
@@ -94,18 +120,18 @@ function MediaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Chip Ransler
+              {props.student.first} {props.student.last}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This is my bio!
+            {props.bio}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button href="https://github.com/samhecht"size="small" color="primary" >
+        <Button href={props.student.github} size="small" color="primary" >
           Github
         </Button>
-        <Button href= "https://www.linkedin.com/in/cwransleriv/" size="small" color="primary">
+        <Button href={props.student.linkedIn} size="small" color="primary">
           Linkedin
         </Button>
         <IconButton
@@ -125,7 +151,8 @@ function MediaCard() {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           
-          <Typography>Chip Ransler is the program lead for Pipeline and the Executive Director of HackCville. He also lectures at the Darden School of Business and has guest lectured at the McIntire School of Commerce and the Batten School of Leadership and Public Policy. Chip has extensive experience in entrepreneurship. He formerly founded and/or led several companies, including Husk Power Systems, Branch Basics, and Topik Solutions. Chip has an MBA from Darden and a BA in Archaeology from the University of Virginia. You can reach Chip with any questions at chip@hackcville.com.
+          <Typography>
+            {props.student.bio}
           </Typography>
         </CardContent>
       </Collapse>
