@@ -69,7 +69,6 @@ function SignUpNew() {
 
     if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
       if(activeStep == 0){
-      firebase.auth().createUserWithEmailAndPassword(email, pwd)
       const promise = firebase.auth().createUserWithEmailAndPassword(email, pwd);
       promise.then((result)=>{
           console.log("done")
