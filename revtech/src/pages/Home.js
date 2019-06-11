@@ -75,8 +75,6 @@ function Home() {
     alignItems: 'center',
     marginTop: '150px',
     marginBottom: '150px',
-    // paddingLeft: '6%',
-    // paddingRight: '6%',
   }
 
   const info = {
@@ -107,17 +105,20 @@ function Home() {
   }
   const h3 = {
     textAlign: 'left',
-    lineHeight: '1.2'
+    lineHeight: '1.2',
+    textDecoration: 'underline',
+    textDecorationColor: '#73C2FB'
+    // color: '#73C2FB'
   }
   const h4 = {
     textAlign: 'left',
     fontSize: '26px',
-    marginTop: '20px',
+    marginTop: '25px',
     lineHeight: '2'
   }
   const imgStyle = {
     width: '75%',
-    // border: '1px solid hotpink',
+    boxShadow: '-15px 15px 30px #73C2FB',
     borderRadius:'50%'
   }
   return (
