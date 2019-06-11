@@ -24,11 +24,26 @@ class App extends React.Component{
     super(props);
     this.state = {
       test: "",
+      user: null,
+      loading: true,
+
     }
   }
 
   // example of how to access the database
   componentDidMount(){
+
+
+    firebase.auth().onAuthStateChanged(data => {
+      if (!data){ this.setState({user: null});}
+      else {this.setState({ user: data.id }, ()=> this.setState({loading: false}));
+      
+
+    }
+    });
+  
+
+
     const sessionRef = firebase.database().ref('/Test');
     
     sessionRef.on("value", snap => {
@@ -47,7 +62,9 @@ class App extends React.Component{
     //     <p>{this.state.test}</p>
     //   )
     // }
-
+    if(this.state.loading){
+      return <div></div>
+    }
     return (
       <div className="App">
 
@@ -66,11 +83,11 @@ class App extends React.Component{
 
        {/* <Route path="/SignUp" exact component={SignUp} /> */}
         <Route path="/Marketplace" exact component={Marketplace}/>
-
+        <PrivateRoute path="/privatestudent" exact component = {Companies} user={firebase.auth().currentUser} permissionType="student"/> 
       </Router>
        
 
-        {/* <PrivateRoute path="/" exact component={TimerPage} user={user} permissionType="user"/> */}
+      
    
       </div>
     );
@@ -79,11 +96,68 @@ class App extends React.Component{
 
 
 // create a private route to check if the user is of 'user' type
+// const PrivateRoute = ({ component: Component, user, permissionType, ...rest }) => (
+//   <Route
+//     {...rest}
+//     render={props => {
+
+//       let permission = ""
+//       firebase.auth().onAuthStateChanged(function(user) {
+//         if (user) {
+//           console.log("i am signed in") // User is signed in.
+
+//           console.log(user.uid)
+
+      
+
+//           const studentsRef = firebase.database().ref('students')
+//           studentsRef.orderByChild('userId').equalTo(user.uid).on("value", function(snapshot) {
+      
+//            snapshot.forEach((function(child) { 
+//              permission = (child.val().permission) ;
+//             console.log(child.val().permission)
+          
+//            }))});
+
+           
+//            const companiesRef = firebase.database().ref('companies')
+//            companiesRef.orderByChild('companyid').equalTo(user.uid).on("value", function(snapshot) {
+       
+//             snapshot.forEach((function(child) { 
+//               permission = (child.val().permission) ;
+//               console.log(child.val().permission)
+           
+//             }))});
+          
+//             console.log('permission'+permission)
+
+
+
+
+           
+//             return <Component/>;
+
+            
+
+//         } else {
+//           // No user is signed in.
+//           return <Redirect to="/signIn" />;
+//         }
+//       });
+
+      
+//     }
+//   }
+//   />
+// );
+
+
 const PrivateRoute = ({ component: Component, user, permissionType, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (user && user.permission === permissionType){
+      
+      if (user){
         return <Component user={user} {...props} />;
       } else {
         return <Redirect to="/signIn" />;
@@ -93,7 +167,6 @@ const PrivateRoute = ({ component: Component, user, permissionType, ...rest }) =
   }
   />
 );
-
 
 
 

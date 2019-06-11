@@ -100,7 +100,7 @@ function SignUpNew() {
             github: github,
             linkedIn: linkedIn,
             bio: bio,
-            permissions: "student",
+            permission: "student",
           }
           const userRef = firebase.database().ref("students");
           userRef.push(currUser);
