@@ -46,7 +46,8 @@ function Students(){
     const renderStudents = () => {
       const studentDisplay = students.map(student => {
         return (
-          <Grid item md={4}>
+          
+          <Grid item md={4} key={Math.random()}>
             <MediaCard student={student} />
           </Grid>
         )
@@ -65,9 +66,6 @@ function Students(){
             <Grid
               container
               spacing={3}
-              display='flex'
-              flexDirection='row'
-              justifyContent='space-evenly'
               style={{
                 width: "100%",
                 textAlign: "center",
