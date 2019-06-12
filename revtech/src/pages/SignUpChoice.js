@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import Navbar from './../components/Navbar.js';
 

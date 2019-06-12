@@ -8,9 +8,9 @@ import hero from '../images/hero.jpg';
 import app from '../images/app.jpeg';
 import office from '../images/office.jpeg';
 import students from '../images/students.jpeg';
-import logo from '../images/logo.png';
+
 import { Link } from 'react-router-dom';
-import { withTheme } from '@material-ui/styles';
+
 
 const useStyles = makeStyles({
   root: {
