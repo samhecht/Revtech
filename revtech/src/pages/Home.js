@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Home() {
+export default function Home(props) {
   const classes = useStyles();
 
   const imageBoxStyle = {
@@ -199,5 +199,4 @@ function Home() {
   );
 
 }
-export default Home;
 
