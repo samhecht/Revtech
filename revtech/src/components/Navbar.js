@@ -65,7 +65,7 @@ function Navbar(props){
 
     const navBarStyle = {
       backgroundColor: '#73C2FB',
-      padding: "1.5% 1%",
+      padding: "1% 1%",
     }
 
     const linkStyle = {
@@ -77,7 +77,7 @@ function Navbar(props){
       border: '3px solid white',
       color:'white',
       width: '100px',
-      height: '55px',
+      height: '40px',
       borderRadius: '5%',
       textDecoration: 'none',
     }
@@ -131,7 +131,7 @@ function Navbar(props){
             ? <React.Fragment>
                 <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
                 <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
-                <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>
+                <Button color="inherit" style={specialButtonStyle} onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>
               </React.Fragment>
             : <React.Fragment>
                 <div></div>
