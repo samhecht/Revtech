@@ -13,7 +13,7 @@ class ProfilePage extends React.Component {
   state = {
    bio:"",
    last:"",
-   userKey:"",
+  
    userId: ""
 
   }
@@ -26,23 +26,15 @@ class ProfilePage extends React.Component {
          console.log(userId)
          userRef.on('value', (snapshot) => {
           let data = snapshot.val();
-          //all the information is in an object that lives under an auto generated key within the user
-          //object, the line below fetches the list of keys that exist within the user object, in this case,
-          //its just one  
-          
-          var keys = Object.keys(data);
-           //console.log(keys[0])
-          for(let item in data){
              this.setState({
-              bio: data[item].bio,
-              last: data[item].last,
-              userKey: keys[0],
+              bio: data.bio,
+              last: data.last,
               userId: userId
 
              })
                   
              
-          }
+          
           console.log(this.state);
           
       });
@@ -75,7 +67,7 @@ class ProfilePage extends React.Component {
             Kitty Cat Kevin
            <div style={{ fontSize: 10, display: 'flex', justifyContent: 'start' }}>HackCville Member</div>
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20}} >Bio</div>
-           {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} userKey = {this.state.userKey}/>: <div></div>}
+           {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} />: <div></div>}
            {/* <p style = {{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{this.state.bio}</p> */}
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Active Contracts</div>
            <ProfilePosting leftMargin = {'0%'} width = {'90%'} height = {'200px'} arrow={false}/>
