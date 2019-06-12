@@ -54,7 +54,7 @@ class App extends React.Component{
 
       <Router>
         <Route exact path="/" component={Home}/>
-        {/* <Route exact path="/Approval" component={Approval}/> */}
+        <Route exact path="/Approval" component={Approval}/>
         <Route exact path="/Companies" component={Companies}/>
         <Route exact path="/CompanyProfile" component={CompanyProfile}/>
         <Route exact path="/Contract" component={Contract}/>

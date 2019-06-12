@@ -52,8 +52,8 @@ function Contracts(props) {
     const classes = useStyles();
     // Contract
     // const [clientName, setClientName] = useState("");
-    const [company, setCompany] = useState("");
-    const [email, setEmail] = useState("");
+    // const [company, setCompany] = useState("");
+    // const [email, setEmail] = useState("");
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
 
@@ -75,33 +75,22 @@ function Contracts(props) {
        const contracts = firebase.database().ref("contracts/");
 
        const contract = {
-        //    user: userId,
-          //  name: clientName,
-          company: company,
           companyid : userId,
           date : date,
           time : time,
-          email: email,
           project: projectName,
           description: description,
           approved: "pending", // for admin to approve / disapprove
        }
        if (
-        //  clientName != "" && 
-      //  clientCompany != "" && 
-       email != "" && 
        projectName != "" 
        && description != "") {
         contracts.push(contract);
-        // setClientName("");
-        setCompany("");
-        setEmail("");
         setProjectName("");
         setDescription("");
        } else {
          setError("Please fill out all input fields.");
        }
-    //    To-do display error message
        
     };
    
@@ -124,29 +113,6 @@ function Contracts(props) {
               margin="normal"
               required
               fullWidth
-              name="email"
-              label="Email"
-              type="email"
-              autoComplete="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              name="company"
-              label="Company"
-              type="company"
-              autoComplete="company"
-              value={company}
-              onChange={e => setCompany(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
               name="projectName"
               label="Project Name"
               type="projectName"
@@ -164,7 +130,7 @@ function Contracts(props) {
               type="description"
               autoComplete="description"
               multiline
-              rows="6"
+              rows="10"
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
