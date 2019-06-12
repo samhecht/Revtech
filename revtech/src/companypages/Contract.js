@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -47,18 +47,44 @@ const useStyles = makeStyles(theme => ({
    
    
    
-function Contracts(props) {
+export default function Contracts(props) {
    const { history } = props;
     const classes = useStyles();
     // Contract
     // const [clientName, setClientName] = useState("");
-    // const [company, setCompany] = useState("");
-    // const [email, setEmail] = useState("");
+    const [authUser, setAuthUser] = useState("");
+    const [company, setCompany] = useState("");
+    const [email, setEmail] = useState("");
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
 
     const [error, setError] = useState("");
 
+
+    useEffect(() => {
+      const companyRef = firebase.database().ref('/companies');
+      firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+              let id = user.uid;
+              setAuthUser(id);
+              companyRef.on("value", snap => {
+                  const tempCompanies = snap.val();
+                  // console.log(id);
+                  for (let company in tempCompanies) {
+                      if (id == tempCompanies[company].companyid) {
+                          let name = tempCompanies[company].name
+                          let email = tempCompanies[company].email
+                          // console.log("found a match in companies database");
+                          setCompany(name);
+                          setEmail(email);
+                          // console.log(this.state.companyName);
+                      }
+                  }
+  
+              });
+          } 
+      });
+    },[]);
 
    
     const handleClick = (e) => {
@@ -76,6 +102,8 @@ function Contracts(props) {
 
        const contract = {
           companyid : userId,
+          companyName: company,
+          companyEmail: email,
           date : date,
           time : time,
           project: projectName,
@@ -98,7 +126,6 @@ function Contracts(props) {
       <div>
        <Navbar/>
       <Container component="main" maxWidth="sm">
-        
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -153,5 +180,5 @@ function Contracts(props) {
     );
    }
     
-    export default withRouter(Contracts)
+
     
