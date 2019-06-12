@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import Navbar from '../components/Navbar.js';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Table from '@material-ui/core/Table';
@@ -16,9 +19,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import firebase from "../firebase/firebase";
 import { flexbox } from '@material-ui/system';
 
+const companyName = {
+    fontWeight: 'bold'
+}
 
-
-
+const expansionDetails = {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '0',
+}
 export default class Approval extends React.Component {
 
     state = {
@@ -87,10 +96,11 @@ export default class Approval extends React.Component {
                 }
                 let pushContract = {
                     contractid: contract,
+                    companyName: allContracts[contract].companyName,
+                    commpanyEmail: allContracts[contract].companyEmail,
                     companyid: allContracts[contract].companyid,
                     date: allContracts[contract].date,
                     time: allContracts[contract].time,
-                    email: allContracts[contract].email,
                     project: allContracts[contract].project,
                     description: allContracts[contract].description,
                     trimmedDescription: trimmed,
@@ -111,6 +121,25 @@ export default class Approval extends React.Component {
         console.log(this.state.contracts);
         return (
             <div>
+            <Navbar/>
+            <h1>Contracts</h1>
+            {this.state.contracts.map((contract, id) => (
+                <ExpansionPanel>
+                    <ExpansionPanelSummary>
+                        <Typography styles={companyName}>{contract.companyName}</Typography>
+                        <Typography>{contract.project}</Typography>
+                        <Typography>{contract.status}</Typography>
+                        <Button onClick={() => this.handleApprove(contract.contractid)}> Approve </Button>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails styles={expansionDetails}>
+                        <Typography> Description: {contract.description}</Typography>
+                        <Typography> Date: {contract.date}</Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+            ))}
+
+
+
             <Table>
             <TableBody>
             <TableRow>
