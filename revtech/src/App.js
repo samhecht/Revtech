@@ -26,66 +26,97 @@ class App extends React.Component{
       test: "",
       user: null,
       loading: true,
-
+      permission: null
     }
   }
 
   // example of how to access the database
   componentDidMount(){
-
+    
 
     firebase.auth().onAuthStateChanged(data => {
-      if (!data){ this.setState({user: null});}
-      else {this.setState({ user: data.id }, ()=> this.setState({loading: false}));
-      
-
+      if (!data){  this.setState({user: null});
+      this.setState({permission: null});
+      this.setState({loading: false})
+    
     }
+      else {this.setState({ user: data}, ()=> {
+      
+      let permission = null;
+
+      const studentsRef = firebase.database().ref('students')
+       studentsRef.orderByChild('userId').equalTo(this.state.user.uid).on("value", function(snapshot) {
+  
+       snapshot.forEach((function(child) { 
+        permission = (child.val().permission);
+        console.log(child.val().permission)
+
+        // this.setState({permission: permission}, ()=> {this.setState({loading: false})})
+      
+       }))});
+
+       
+       const companiesRef = firebase.database().ref('companies')
+      companiesRef.orderByChild('companyid').equalTo(this.state.user.uid).on("value", function(snapshot) {
+   
+        snapshot.forEach((function(child) { 
+         permission = (child.val().permission);
+          // this.setState({permission: permission}, ()=> {this.setState({loading: false})})
+          console.log(child.val().permission)
+       
+        }))});
+
+        var timeout = setInterval(()=>
+{ if(permission!==null) { clearInterval(timeout); console.log(permission); 
+    this.setState({permission: permission}, ()=> {console.log(this.state.permission);
+      this.setState({loading: false})
+
+    })
+} }, 100);
+        
+        
+        
+      }
+      
+      );
+      
+      
+    }
+ 
+    
     });
   
 
-
-    const sessionRef = firebase.database().ref('/Test');
-    
-    sessionRef.on("value", snap => {
-      console.log(snap.val());
-      this.setState({
-        test: snap.val(),
-      });
-    })
   }
 
   
 
   render() {
-    // if (this.state.test){
-    //   return (
-    //     <p>{this.state.test}</p>
-    //   )
-    // }
+ 
     if(this.state.loading){
       return <div></div>
     }
     return (
       <div className="App">
 
-      <Router>
+
+             <Router>
         <Route exact path="/" component={Home}/>
         <Route exact path="/Companies" component={Companies}/>
-        <Route exact path="/CompanyProfile" component={CompanyProfile}/>
-        <Route exact path="/Contract" component={Contract}/>
-        <Route exact path="/Students" component={Students}/>
+        <PrivateRoute path="/CompanyProfile" exact component = {CompanyProfile} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
+        <PrivateRoute path="/Contract" exact component = {Contract} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
+        <PrivateRoute path="/Students" exact component = {Students} user={this.state.user} permission = {this.state.permission} permissionType="all"/>
+
         <Route path="/SignIn" exact component={SignIn} />
         <Route path="/SignUpCompany" exact component={SignUp} />
         <Route path="/SignUpStudent" exact component={SignUpNew} />
         <Route path="/SignUp" exact component={SignUpChoice} />
-        <Route path="/profilepage" exact component={ProfilePage} />
-        {/* <Route path="/StepperSignUp" exact component={StepperSignUp} /> */}
+        <PrivateRoute path="/profilepage" exact component = {ProfilePage} user={this.state.user} permission = {this.state.permission} permissionType="student"/>
 
-       {/* <Route path="/SignUp" exact component={SignUp} /> */}
-        <Route path="/Marketplace" exact component={Marketplace}/>
-        <PrivateRoute path="/privatestudent" exact component = {Companies} user={firebase.auth().currentUser} permissionType="student"/> 
+        <PrivateRoute path="/MarketPlace" exact component = {Marketplace} user={this.state.user} permission = {this.state.permission} permissionType="student"/>
+        <PrivateRoute path="/privatestudent" exact component = {Companies} user={this.state.user} permission = {this.state.permission} permissionType="student"/> 
       </Router>
-       
+
 
       
    
@@ -95,72 +126,16 @@ class App extends React.Component{
 }
 
 
-// create a private route to check if the user is of 'user' type
-// const PrivateRoute = ({ component: Component, user, permissionType, ...rest }) => (
-//   <Route
-//     {...rest}
-//     render={props => {
 
-//       let permission = ""
-//       firebase.auth().onAuthStateChanged(function(user) {
-//         if (user) {
-//           console.log("i am signed in") // User is signed in.
-
-//           console.log(user.uid)
-
-      
-
-//           const studentsRef = firebase.database().ref('students')
-//           studentsRef.orderByChild('userId').equalTo(user.uid).on("value", function(snapshot) {
-      
-//            snapshot.forEach((function(child) { 
-//              permission = (child.val().permission) ;
-//             console.log(child.val().permission)
-          
-//            }))});
-
-           
-//            const companiesRef = firebase.database().ref('companies')
-//            companiesRef.orderByChild('companyid').equalTo(user.uid).on("value", function(snapshot) {
-       
-//             snapshot.forEach((function(child) { 
-//               permission = (child.val().permission) ;
-//               console.log(child.val().permission)
-           
-//             }))});
-          
-//             console.log('permission'+permission)
-
-
-
-
-           
-//             return <Component/>;
-
-            
-
-//         } else {
-//           // No user is signed in.
-//           return <Redirect to="/signIn" />;
-//         }
-//       });
-
-      
-//     }
-//   }
-//   />
-// );
-
-
-const PrivateRoute = ({ component: Component, user, permissionType, ...rest }) => (
+const PrivateRoute = ({ component: Component, user, permission, permissionType, ...rest }) => (
   <Route
     {...rest}
     render={props => {
       
-      if (user){
+      if (user && (permission === permissionType || permissionType ==="all")){
         return <Component user={user} {...props} />;
       } else {
-        return <Redirect to="/signIn" />;
+        return <Redirect to="/SignIn" />;
       }
       
     }
