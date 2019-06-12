@@ -4,15 +4,52 @@ import Navbar from './../components/Navbar.js';
 import { flexbox } from '@material-ui/system';
 import { grey } from '@material-ui/core/colors';
 import Posting from './../userpages/Posting.js';
-
+import firebase from '../firebase/firebase.js';
+import EditTextfield from './editTextField'
+import ProfilePosting from './../userpages/ProfilePosting.js'
 
 const text = "Immediately regret falling into bathtub woops poop hanging from butt must get rid run run around house drag poop on floor maybe it comes off woops left brown marks on floor human slave clean lick butt now yet meow for stare out the window. Lick yarn hanging out of own butt. Stuff and things knock over christmas tree meow meow, i tell my human yet find empty spot in cupboard and sleep all day but i'm going to lap some water out of my master's cup meow";
 class ProfilePage extends React.Component {
   state = {
-    user: {}
+   bio:"",
+   last:"",
+   userKey:"",
+   userId: ""
 
   }
   
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged( user => {
+      if (user){
+        var userId = firebase.auth().currentUser.uid;
+        const userRef = firebase.database().ref('students/'+userId);
+         console.log(userId)
+         userRef.on('value', (snapshot) => {
+          let data = snapshot.val();
+          //all the information is in an object that lives under an auto generated key within the user
+          //object, the line below fetches the list of keys that exist within the user object, in this case,
+          //its just one  
+          
+          var keys = Object.keys(data);
+           //console.log(keys[0])
+          for(let item in data){
+             this.setState({
+              bio: data[item].bio,
+              last: data[item].last,
+              userKey: keys[0],
+              userId: userId
+
+             })
+                  
+             
+          }
+          console.log(this.state);
+          
+      });
+         
+      }
+    });
+  }
 
   render() {
     return (
@@ -38,10 +75,13 @@ class ProfilePage extends React.Component {
             Kitty Cat Kevin
            <div style={{ fontSize: 10, display: 'flex', justifyContent: 'start' }}>HackCville Member</div>
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20}} >Bio</div>
-           <p style = {{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{text}</p>
+           {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} userKey = {this.state.userKey}/>: <div></div>}
+           {/* <p style = {{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{this.state.bio}</p> */}
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Active Contracts</div>
-           <Posting leftMargin = {'0%'} width = {'90%'} height = {'200px'} arrow={false}/>
+           <ProfilePosting leftMargin = {'0%'} width = {'90%'} height = {'200px'} arrow={false}/>
+           {/* {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} userKey = {this.state.userKey}/>: <div></div>} */}
           </div>
+         
         </div>
       </div>
 

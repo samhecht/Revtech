@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -6,12 +6,9 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
-import firebase from '../firebase/firebase';
 
 
-export default function Posting(props) {
-
-    const [comments, setComments] = useState([]);
+export default function ProfilePosting(props) {
 
     const [hideComments, setHideComments] = useState(true);
 
@@ -31,28 +28,7 @@ export default function Posting(props) {
         marginTop: '4%',
         textAlign: 'center'
     }
-
-    useEffect(() => {
-        const parentKey = props.parentId;
-
-        const commentRef = firebase.database().ref('/comments');
-        let tempComments = [];
-        commentRef.on("value", snapshot => {
-            const currComments = snapshot.val();
-            const currKeys = Object.keys(currComments);
-
-            currKeys.forEach(key => {
-                const commentContractId = currComments[key].parentContract;
-                if (commentContractId === parentKey) {
-                    tempComments.push(<Comment hidden={hideComments} comment={currComments[key]} />);
-                }
-            });
-        });
-        setComments(tempComments);
-    })
-
-
-
+    
     return (
         <React.Fragment>
             
@@ -65,14 +41,12 @@ export default function Posting(props) {
                     width='100%'
                     height='100%'                    
                 >
-                    <Typography variant="h4" component="h3">
-                        {props.contract.company}
-                    </Typography>
                     <Typography variant="h5" component="h3">
-                        {props.contract.email}
+                        HackCville
                     </Typography>
                     <Typography variant="body1" component="h3">
-                        {props.contract.description}
+                        I need someone to make me a react app.
+                        It's gotta be really good.  I'll pay 15$ per hour
                     </Typography>
                     <Box
                         display='flex'
@@ -84,8 +58,9 @@ export default function Posting(props) {
                     </Box>
                 </Box>
             </Paper>
-            <CommentForm hidden={hideComments} parentContract={props.contract.companyid} parentId={props.parentId}/>
-            {comments}
+            <CommentForm hidden={hideComments}/>
+            <Comment hidden={hideComments}/>
+            <Comment hidden={hideComments}/>
                 
             
         </React.Fragment>
