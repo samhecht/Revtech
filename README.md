@@ -2,6 +2,9 @@
 
 RevTek is a project built in React for a mock company called "RevTek". The aim is to build a platform that matches companies with students. Features include: contract submissions, ability to comment, viewing of profiles, and accounting for different user roles. 
 
+## Next Steps
+This project is still incomplete, but below are the requirements we hoped to fulfill if we had more time to work on the project.
+
 ## RevTek Consulting Key Requirements
 
 * Platform for current and future interns to interact with each other
