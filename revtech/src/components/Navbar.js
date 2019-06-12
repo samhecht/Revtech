@@ -117,7 +117,7 @@ function Navbar(props){
         >
 
           {(user && perm === "student") 
-            ? <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+            ? <Button color="inherit"><Link style={linkStyle} to="/Marketlace">Marketplace</Link></Button>
             : null
           }
           {(user && perm === "company") 
