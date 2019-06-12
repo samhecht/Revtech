@@ -9,14 +9,14 @@ import EditTextfield from './editTextField'
 import EditTextfieldSmall from './EditTextFieldSmall'
 import ProfilePosting from './../userpages/ProfilePosting.js'
 
-const skills = "java, c++, HTML, React";
+
 const text = "Immediately regret falling into bathtub woops poop hanging from butt must get rid run run around house drag poop on floor maybe it comes off woops left brown marks on floor human slave clean lick butt now yet meow for stare out the window. Lick yarn hanging out of own butt. Stuff and things knock over christmas tree meow meow, i tell my human yet find empty spot in cupboard and sleep all day but i'm going to lap some water out of my master's cup meow";
 class ProfilePage extends React.Component {
   state = {
    bio:"",
    last:"",
   
-   userId: ""
+   skills: ""
 
   }
   
@@ -31,8 +31,8 @@ class ProfilePage extends React.Component {
              this.setState({
               bio: data.bio,
               last: data.last,
+              skills: data.skills,
               userId: userId
-
              })
                   
              
@@ -71,9 +71,9 @@ class ProfilePage extends React.Component {
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20}} >Bio</div>
            {this.state.bio.length>0? <EditTextfield text = {this.state.bio} userId = {this.state.userId} />: <div></div>}
            {/* <p style = {{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{this.state.bio}</p> */}
-           <div className = "skillz" style={{ fontSize: 30, display: 'flex', justifyContent: 'start', flexDirection: 'row' }}> 
+           <div className = "skillz" style={{ fontSize: 30, display: 'flex', justifyContent: 'start', flexDirection: 'row', height: '50px' }}> 
            <div style = {{marginRight:'10px'}}>Skills: </div>
-           <div style = {{lineHeight: '16px'}}><EditTextfieldSmall text = {skills} userId = {this.state.userId} /></div>
+    <div style = {{lineHeight: '16px'}}>{this.state.skills.length>0?<EditTextfieldSmall text = {this.state.skills} userId ={this.state.userId} skills = {this.state.skills} />:<div></div>}</div>
            
            </div>
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Active Contracts</div>

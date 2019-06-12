@@ -15,7 +15,7 @@ class EditTextFieldSmall extends React.Component {
     componentDidMount() {
        console.log(this.props.text)
        console.log(this.props.userKey)
-       console.log(this.props.userId)
+       console.log(this.props.skills)
     }
 
     changeEditMode = () => {
@@ -32,13 +32,14 @@ class EditTextFieldSmall extends React.Component {
         })
 
         //update firebase
-        // const userRef = firebase.database().ref("students/"+this.props.userId+"/bio");
-        // userRef.set(document.getElementById("textInputVal").value)
-        // userRef.on('value', (snapshot) => {
-        //     let tasks = snapshot.val();
-        //     console.log(tasks)
+        console.log(this.props.userId)
+        const userRef = firebase.database().ref("students/"+this.props.userId+"/skills");
+        userRef.set(document.getElementById("textInputVal").value)
+        userRef.on('value', (snapshot) => {
+            let tasks = snapshot.val();
+            console.log(tasks)
             
-        // });
+        });
        
         
 
@@ -53,7 +54,7 @@ class EditTextFieldSmall extends React.Component {
             <Input
                 defaultValue={this.state.value}
                 autosize={{ minRows: 1, maxRows: 2  }}
-                
+                style = {{width:'350px'}}
                 id = "textInputVal"
             />
             

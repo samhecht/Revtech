@@ -32,7 +32,6 @@ class App extends React.Component{
 
   // example of how to access the database
   componentDidMount(){
-  
 
     firebase.auth().onAuthStateChanged(data => {
       if (!data){  this.setState({user: null});
