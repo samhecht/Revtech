@@ -69,7 +69,6 @@ function SignUpNew() {
 
     if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
       if(activeStep == 0){
-      firebase.auth().createUserWithEmailAndPassword(email, pwd)
       const promise = firebase.auth().createUserWithEmailAndPassword(email, pwd);
       promise.then((result)=>{
           console.log("done")
@@ -102,7 +101,7 @@ function SignUpNew() {
             bio: bio,
             permissions: "student",
           }
-          const userRef = firebase.database().ref("students");
+          const userRef = firebase.database().ref("students/"+firebase.auth().currentUser.uid);
           userRef.push(currUser);
           setFinished(true);
         // })
