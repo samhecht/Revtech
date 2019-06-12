@@ -32,7 +32,7 @@ class App extends React.Component{
 
   // example of how to access the database
   componentDidMount(){
-    
+  
 
     firebase.auth().onAuthStateChanged(data => {
       if (!data){  this.setState({user: null});
@@ -43,17 +43,16 @@ class App extends React.Component{
       else {this.setState({ user: data}, ()=> {
       
       let permission = null;
-
-      const studentsRef = firebase.database().ref('students')
-       studentsRef.orderByChild('userId').equalTo(this.state.user.uid).on("value", function(snapshot) {
-  
-       snapshot.forEach((function(child) { 
-        permission = (child.val().permission);
-        console.log(child.val().permission)
-
-        // this.setState({permission: permission}, ()=> {this.setState({loading: false})})
       
-       }))});
+    let id = this.state.user.uid
+
+      var ref = firebase.database().ref("students/" );
+      ref.once("value")
+        .then(function(snapshot) {
+          if(snapshot.child(id).val() !==null){
+          permission = snapshot.child(id).val().permission}
+          console.log(permission)
+        });
 
        
        const companiesRef = firebase.database().ref('companies')
@@ -135,7 +134,7 @@ const PrivateRoute = ({ component: Component, user, permission, permissionType, 
       if (user && (permission === permissionType || permissionType ==="all")){
         return <Component user={user} {...props} />;
       } else {
-        return <Redirect to="/SignIn" />;
+        return <Redirect to="/" />;
       }
       
     }
