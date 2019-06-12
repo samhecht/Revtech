@@ -101,7 +101,7 @@ function SignUpNew() {
             bio: bio,
             permissions: "student",
           }
-          const userRef = firebase.database().ref("students");
+          const userRef = firebase.database().ref("students/"+firebase.auth().currentUser.uid);
           userRef.push(currUser);
           setFinished(true);
         // })
