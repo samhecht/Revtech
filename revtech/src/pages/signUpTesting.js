@@ -92,7 +92,6 @@ function SignUpNew() {
         // .then(() => {
           // created a user now add everything to the db and redirect
           let currUser = {
-            userId: firebase.auth().currentUser.uid,
             email: firebase.auth().currentUser.email,
             first: firstName,
             last: lastName,
@@ -102,7 +101,7 @@ function SignUpNew() {
             permissions: "student",
           }
           const userRef = firebase.database().ref("students/"+firebase.auth().currentUser.uid);
-          userRef.push(currUser);
+          userRef.update(currUser);
           setFinished(true);
         // })
         // .catch(() => {
