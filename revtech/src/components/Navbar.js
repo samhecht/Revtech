@@ -51,6 +51,15 @@ function Navbar(props){
       textDecoration: 'none',
     }
 
+    const specialButtonStyle = {
+      border: '3px solid white',
+      color:'white',
+      width: '100px',
+      height: '55px',
+      borderRadius: '5%',
+      textDecoration: 'none',
+    }
+
     return (
     <div className={classes.root}>
       <Box
@@ -84,9 +93,9 @@ function Navbar(props){
           <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
           {/* Contracts only appear to Company Type User*/}
           {/* Will update this later to just 'Profile' when we get separate navbars */}
-          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Company Profile</Link></Button>}
+          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Profile</Link></Button>}
           {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/Contract">Contract</Link></Button>}
-          {user !==null ? null : <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
+          {user !==null ? null : <Button color="inherit" style={specialButtonStyle}><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
           {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
         </Box>
       </Box>

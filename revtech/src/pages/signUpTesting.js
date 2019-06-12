@@ -69,7 +69,6 @@ function SignUpNew() {
 
     if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
       if(activeStep == 0){
-      firebase.auth().createUserWithEmailAndPassword(email, pwd)
       const promise = firebase.auth().createUserWithEmailAndPassword(email, pwd);
       promise.then((result)=>{
           console.log("done")
@@ -93,7 +92,6 @@ function SignUpNew() {
         // .then(() => {
           // created a user now add everything to the db and redirect
           let currUser = {
-            userId: firebase.auth().currentUser.uid,
             email: firebase.auth().currentUser.email,
             first: firstName,
             last: lastName,
@@ -102,8 +100,8 @@ function SignUpNew() {
             bio: bio,
             permission: "student",
           }
-          const userRef = firebase.database().ref("students");
-          userRef.push(currUser);
+          const userRef = firebase.database().ref("students/"+firebase.auth().currentUser.uid);
+          userRef.update(currUser);
           setFinished(true);
         // })
         // .catch(() => {
