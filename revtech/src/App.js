@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home.js'
+import Approval from './adminpage/Approval.js'
 import Companies from './pages/Companies.js'
 import CompanyProfile from './companypages/CompanyProfile.js'
 import Contract from './companypages/Contract.js'
@@ -53,6 +54,7 @@ class App extends React.Component{
 
       <Router>
         <Route exact path="/" component={Home}/>
+        {/* <Route exact path="/Approval" component={Approval}/> */}
         <Route exact path="/Companies" component={Companies}/>
         <Route exact path="/CompanyProfile" component={CompanyProfile}/>
         <Route exact path="/Contract" component={Contract}/>
