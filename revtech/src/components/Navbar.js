@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props){
     const classes = useStyles();
     const [user, setUser] = useState(null); // sees if someone is logged in
+    const [perm, setPerm] = useState(null);
+
+    const studentLinks = {
+
+    }
 
     function handleLogOut() {
       setUser(null);
@@ -35,7 +40,24 @@ function Navbar(props){
 
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        setUser(true);
+        let studRef = firebase.database().ref(`/students/${user.uid}`);
+        const compRef = firebase.database().ref('/companies');
+        compRef.on("value", snap => {
+          const compObj = snap.val();
+          const compKeys = Object.keys(compObj);
+          const isComp = compKeys.some(key => {
+            return compObj[key].companyid === user.uid;
+          });
+          if (isComp) {
+            setPerm('company');
+            studRef = null;
+          }
+        });
+        if (studRef) {
+          setPerm('student');
+        } 
+        setUser(user);
+
       } else {
         setUser(null);
       }
@@ -59,6 +81,7 @@ function Navbar(props){
       borderRadius: '5%',
       textDecoration: 'none',
     }
+    console.log(user);
 
     return (
     <div className={classes.root}>
@@ -88,15 +111,33 @@ function Navbar(props){
           color="inherit"
           width="45%"
         >
-          <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
-          <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
-          <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
-          {/* Contracts only appear to Company Type User*/}
-          {/* Will update this later to just 'Profile' when we get separate navbars */}
-          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Profile</Link></Button>}
-          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/Contract">Contract</Link></Button>}
-          {user !==null ? null : <Button color="inherit" style={specialButtonStyle}><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
-          {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
+
+          {(user && perm === "student") 
+            ? <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+            : null
+          }
+          {(user && perm === "company") 
+            ? <React.Fragment>
+                <Button color="inherit"><Link style={linkStyle} to="/Contract">Contract</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Profile</Link></Button>
+              </React.Fragment>
+            : null
+          }
+          {(user) 
+            ? <React.Fragment>
+                <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
+                <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>
+              </React.Fragment>
+            : <React.Fragment>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <Button color="inherit" style={specialButtonStyle}><Link style={linkStyle} to="/SignIn">Login</Link></Button>
+              </React.Fragment>
+            
+          }
         </Box>
       </Box>
     </div>
