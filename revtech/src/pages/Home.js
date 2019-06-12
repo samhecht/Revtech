@@ -64,20 +64,20 @@ function Home() {
   }
 
   const heroTitle = {
-    fontSize: '55px',
+    fontSize: '50px',
     fontWeight: 'normal',
     marginBottom: '5px',
     color: 'white'
   }
   const heroTagline = {
-    fontSize: '26px',
     fontWeight: 'normal',
-    color: 'white'
+    color: 'white',
+    fontSize: '24px',
+    fontWeight: 'normal'
   }
 
   const buttonStyle = {
     backgroundColor: '#73C2FB',
-    // backgroundColor: '#FFA711',
     width: '100px',
     height: '55px',
     fontSize: '20px',
@@ -90,7 +90,7 @@ function Home() {
   const section = {
     display: 'flex',
     width: '100%',
-    height: '300px',
+    height: '330px',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -127,6 +127,7 @@ function Home() {
   const h3 = {
     textAlign: 'left',
     lineHeight: '1.2',
+    fontSize: '40px',
     textDecoration: 'underline',
     textDecorationColor: '#73C2FB',
     fontSize: '36px',

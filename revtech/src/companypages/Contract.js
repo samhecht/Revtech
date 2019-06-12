@@ -52,7 +52,7 @@ function Contracts(props) {
     const classes = useStyles();
     // Contract
     // const [clientName, setClientName] = useState("");
-    // const [clientCompany, setCompany] = useState("");
+    const [company, setCompany] = useState("");
     const [email, setEmail] = useState("");
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
@@ -77,7 +77,7 @@ function Contracts(props) {
        const contract = {
         //    user: userId,
           //  name: clientName,
-          //  company: clientCompany,
+          company: company,
           companyid : userId,
           date : date,
           time : time,
@@ -94,7 +94,7 @@ function Contracts(props) {
        && description != "") {
         contracts.push(contract);
         // setClientName("");
-        // setCompany("");
+        setCompany("");
         setEmail("");
         setProjectName("");
         setDescription("");
@@ -130,6 +130,17 @@ function Contracts(props) {
               autoComplete="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              name="company"
+              label="Company"
+              type="company"
+              autoComplete="company"
+              value={company}
+              onChange={e => setCompany(e.target.value)}
             />
             <TextField
               variant="outlined"
