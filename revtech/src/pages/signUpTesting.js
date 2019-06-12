@@ -1,5 +1,3 @@
-
-// for stepper
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -11,6 +9,9 @@ import SignUpForm from './SignUpForm';
 import InfoForm from './InfoForm';
 import BioForm from './BioForm';
 import firebase from '../firebase/firebase.js';
+import { Redirect } from 'react-router-dom';
+import Navbar from './../components/Navbar.js';
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Create account', 'Include websites', 'Add a bio'];
 }
 
 
@@ -36,35 +37,89 @@ function SignUpNew() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
+  const [github, setGithub] = useState("");
+  const [bio, setBio] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [finished, setFinished] = useState(false);
+  const [message, setMessage] = useState("");
   const steps = getSteps();
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       // Login with email and password
       case 0:
-        return <SignUpForm setParentEmail={setEmail} setParentPwd={setPwd} />;
+        return (<SignUpForm 
+                  setParentEmail={setEmail} 
+                  setParentPwd={setPwd} 
+                  setParentFirstName={setFirstName}
+                  setParentLastName={setLastName}
+                />);
       case 1:
-        return <InfoForm/>;
+        return <InfoForm setParentLinkedIn={setLinkedIn} setParentGithub={setGithub} />;
       case 2:
-        return <BioForm/>;
+        return <BioForm setParentBio={setBio} />;
       default:
-        return 'Uknown stepIndex';
+        return 'Unknown stepIndex';
     }
   }
 
   function handleNext() {
-    if (activeStep === 0) {
-        console.log(email);
-        firebase.auth().createUserWithEmailAndPassword(email, pwd).then(() => {
-            // console.log(firebase.auth().currentUser);
+
+    if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
+      if(activeStep == 0){
+      firebase.auth().createUserWithEmailAndPassword(email, pwd)
+      const promise = firebase.auth().createUserWithEmailAndPassword(email, pwd);
+      promise.then((result)=>{
+          console.log("done")
+          setActiveStep(prevActiveStep => prevActiveStep + 1);
+          
+        },
+        (error)=>{
+          console.log(error.message);
+          setMessage(error.message);
         })
-        .catch(() => {
-            console.log("error creating user");
-        })
+      }
+      if (activeStep ==1){
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
+      }
+    if (activeStep === 2) {
+      firebase.auth()
+      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
         
-        // handle firebase signup
+        // firebase.auth().createUserWithEmailAndPassword(email, pwd)
+        // .then(() => {
+          // created a user now add everything to the db and redirect
+          let currUser = {
+            userId: firebase.auth().currentUser.uid,
+            email: firebase.auth().currentUser.email,
+            first: firstName,
+            last: lastName,
+            github: github,
+            linkedIn: linkedIn,
+            bio: bio,
+            permissions: "student",
+          }
+          const userRef = firebase.database().ref("students");
+          userRef.push(currUser);
+          setFinished(true);
+        // })
+        // .catch(() => {
+        //     console.log("error creating user");
+        // });
+      });
+      
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
     }
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+
+    
+    
+  }
+  else{
+    setMessage("Please enter all the required fields")
+  }
   }
 
   function handleBack() {
@@ -75,7 +130,12 @@ function SignUpNew() {
     setActiveStep(0);
   }
 
+  if (finished) {
+    return <Redirect to="/Marketplace" />;
+  }
   return (
+    <div>
+    <Navbar/>
     <div className={classes.root} style={{marginLeft: "5%"}}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
@@ -87,15 +147,14 @@ function SignUpNew() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            <Typography className={classes.instructions}>All steps completed. Redirect. . .</Typography>
           </div>
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
               <Button
-                disabled={activeStep === 0}
+                disabled={activeStep === 0 || activeStep === 1}
                 onClick={handleBack}
                 className={classes.backButton}
               >
@@ -109,6 +168,17 @@ function SignUpNew() {
           </div>
         )}
       </div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
+        open={!!message}
+        autoHideDuration={5000}
+        onClose={() => setMessage(null)}
+        message={<div>{message}</div>}
+      />
+    </div>
     </div>
   );
 }

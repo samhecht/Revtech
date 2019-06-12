@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import firebase from '../firebase/firebase'
 import { signOut } from "../firebase/firebase";
 import { Box } from '@material-ui/core';
-
+import Avatar from '@material-ui/core/Avatar';
+import logo from '../images/logo-white.png';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,11 +43,20 @@ function Navbar(props){
 
     const navBarStyle = {
       backgroundColor: '#73C2FB',
-      padding: "2% 1%",
+      padding: "1.5% 1%",
     }
 
     const linkStyle = {
       color: 'white',
+      textDecoration: 'none',
+    }
+
+    const specialButtonStyle = {
+      border: '3px solid white',
+      color:'white',
+      width: '100px',
+      height: '55px',
+      borderRadius: '5%',
       textDecoration: 'none',
     }
 
@@ -60,7 +70,10 @@ function Navbar(props){
       >
         <Box
           marginLeft="5%"
+          display='flex'
+          flex-direction='row'
         >
+          <Avatar alt="logo" src={logo}></Avatar>
           <Link style={linkStyle} to="/">
             <Typography variant="h4" to="/" >
               RevTek
@@ -79,8 +92,10 @@ function Navbar(props){
           <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
           <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
           {/* Contracts only appear to Company Type User*/}
-          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/Contracts">Contract</Link></Button>}
-          {user !==null ? null : <Button color="inherit"><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
+          {/* Will update this later to just 'Profile' when we get separate navbars */}
+          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Company Profile</Link></Button>}
+          {user == null ? null : <Button color="inherit"><Link style={linkStyle} to="/Contract">Contract</Link></Button>}
+          {user !==null ? null : <Button color="inherit" style={specialButtonStyle}><Link style={linkStyle} to="/SignIn">Login</Link></Button>}
           {user == null ? null : <Button color="inherit" onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>}
         </Box>
       </Box>

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Navbar from './../components/Navbar.js'
 
-
+import Grid from '@material-ui/core/Grid';
 
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,23 +12,73 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import avatar from './avatar.png'
-
+import chip from './chip.jpg'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import firebase from '../firebase/firebase';
 
 import clsx from 'clsx';
 
 function Students(){
-   
+    const [students, setStudents] = useState([]);
+
+    const titleStyle = {
+        marginTop: "5%",
+        marginBottom: '5%',
+    }
+    const style1 ={
+        marginLeft: '10%',
+        marginRight: '10%',
+        justifyContent: 'center'
+    }
+
+    useEffect(() => {
+      const studentRef = firebase.database().ref('/students');
+      studentRef.on("value", snap => {
+        const studentObj = snap.val();
+        const studentKeys = Object.keys(studentObj);
+        let tempStudents = studentKeys.map(key => studentObj[key]);
+        setStudents(tempStudents);
+      });
+    }, []);
+    const renderStudents = () => {
+      const studentDisplay = students.map(student => {
         return (
-            <div>
+          <Grid item md={4}>
+            <MediaCard student={student} />
+          </Grid>
+        )
+      });
+      return studentDisplay;
+    }
+    return (
+          <div>
             <Navbar/>
-            Students
-            <MediaCard/>
-            </div>
-        );
+            <Typography 
+                variant="h2"
+                style={titleStyle}
+            >
+                Students
+            </Typography>
+            <Grid
+              container
+              spacing={3}
+              display='flex'
+              flexDirection='row'
+              justifyContent='space-evenly'
+              style={{
+                width: "100%",
+                textAlign: "center",
+                marginLeft: "4%"
+              }}
+            >
+            {renderStudents()}
+            </Grid>
+            
+        </div>
+      );
     
 
 }
@@ -36,10 +86,13 @@ export default Students;
 
 
 
+function getStudentData(){
+
+    
+}
 
 
-
-function MediaCard() {
+function MediaCard(props) {
     const useStyles = makeStyles({
         card: {
           maxWidth: 345,
@@ -60,25 +113,25 @@ function MediaCard() {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <img
+        <CardMedia
            className={classes.media}
-            src = {avatar}
+           image={chip}
            //title="Student Profile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            John Doe
+              {props.student.first} {props.student.last}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This is my bio!
+            {props.bio}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button href={props.student.github} size="small" color="primary" >
           Github
         </Button>
-        <Button size="small" color="primary">
+        <Button href={props.student.linkedIn} size="small" color="primary">
           Linkedin
         </Button>
         <IconButton
@@ -97,9 +150,10 @@ function MediaCard() {
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography list>Skills: </Typography>
-          Here are my skills
-     
+          
+          <Typography>
+            {props.student.bio}
+          </Typography>
         </CardContent>
       </Collapse>
     </Card>

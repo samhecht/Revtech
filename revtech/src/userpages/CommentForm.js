@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import firebase from '../firebase/firebase';
 
 
 
@@ -16,9 +17,15 @@ export default function CommentForm(props) {
     }
 
     const handleClick = () => {
-        console.log(comment);
-        // add comment to database 
-        // display comment under the other ones
+        const commentRef = firebase.database().ref('/comments');
+        const currUser = firebase.auth().currentUser;
+        const commentObj = {
+            userId: currUser.uid,
+            commentBody: comment,
+            parentContract: props.parentId,
+            userEmail: currUser.email,
+        }
+        commentRef.push(commentObj);
         setComment("");
     }
     const handleChange = (event) => {

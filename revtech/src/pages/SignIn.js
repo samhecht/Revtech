@@ -65,10 +65,16 @@ const { history } = props;
   const [message, setMessage] = useState("");
 
 
-  const handleSignIn = async(e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
     console.log(email);
     console.log(password);
+
+    if(email ==="" || password ===""){
+      setMessage("Please enter all the required fields")
+    }
+
+    else{
 
     const promise = firebase.auth().signInWithEmailAndPassword(email, password);
     promise.then((result)=>{
@@ -81,7 +87,7 @@ const { history } = props;
         setMessage(error.message);
       })
 
-
+    }
   }
 
  return (

@@ -53,6 +53,14 @@ export default function SignIn(props) {
     props.setParentPwd(event.target.value);
   }
 
+  const handleFirstName = (event) => {
+    props.setParentFirstName(event.target.value);
+  }
+
+  const handleLastName = (event) => {
+    props.setParentLastName(event.target.value);
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -73,7 +81,7 @@ export default function SignIn(props) {
             label="First name"
             name="email"
             autoComplete="name"
-            onChange={handleEmail}
+            onChange={handleFirstName}
             autoFocus
           />
         <TextField
@@ -85,8 +93,7 @@ export default function SignIn(props) {
             label="Last name"
             name="email"
             autoComplete="name"
-            onChange={handleEmail}
-            autoFocus
+            onChange={handleLastName}
         />
           <TextField
             variant="outlined"
@@ -98,7 +105,6 @@ export default function SignIn(props) {
             name="email"
             autoComplete="email"
             onChange={handleEmail}
-            autoFocus
           />
           <TextField
             variant="outlined"
