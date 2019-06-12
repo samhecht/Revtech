@@ -74,7 +74,7 @@ class App extends React.Component{
                   console.log(this.state.permission);
                   this.setState({loading: false})
                 });
-              } 
+            } 
           }, 100);
         });
       }
