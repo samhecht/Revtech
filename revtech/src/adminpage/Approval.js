@@ -36,7 +36,8 @@ export default class Approval extends React.Component {
     }
 
     handleDelete = (contractid) => {
-        return firebase.database().ref('contracts/').child(contractid).remove();
+        firebase.database().ref('contracts/').child(contractid).remove();
+        this.getContracts();
     }
 
     handleApprove = (contractid) => {
@@ -78,9 +79,7 @@ export default class Approval extends React.Component {
         })
     }
 
-    componentDidMount() {
-       
-
+    getContracts = () => {
         const contractsRef = firebase.database().ref('contracts');
         //Displays All Contracts for every user
         contractsRef.on('value', (snapshot) => {
@@ -117,30 +116,26 @@ export default class Approval extends React.Component {
         console.log(this.state.authUser);
     }
 
+    componentDidMount() {
+       this.getContracts();
+    }
+
     render() {
         console.log(this.state.contracts);
         return (
             <div>
             <Navbar/>
-            <h1>Contracts</h1>
-            {this.state.contracts.map((contract, id) => (
-                <ExpansionPanel>
-                    <ExpansionPanelSummary>
-                        <Typography styles={companyName}>{contract.companyName}</Typography>
-                        <Typography>{contract.project}</Typography>
-                        <Typography>{contract.status}</Typography>
-                        <Button onClick={() => this.handleApprove(contract.contractid)}> Approve </Button>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails styles={expansionDetails}>
-                        <Typography> Description: {contract.description}</Typography>
-                        <Typography> Date: {contract.date}</Typography>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-            ))}
-
-
-
-            <Table>
+            <h1 style={{
+                marginTop: '3%'
+            }}
+            >
+                Contracts
+            </h1>
+            
+            <Table style={{
+                width: '70%',
+                marginLeft: '15%'
+            }}>
             <TableBody>
             <TableRow>
                 {/* <ExpansionPanel>
