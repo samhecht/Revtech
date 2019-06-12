@@ -32,7 +32,7 @@ class EditTextField extends React.Component {
         })
 
         //update firebase
-        const userRef = firebase.database().ref("students/"+this.props.userId+"/"+this.props.userKey+"/bio");
+        const userRef = firebase.database().ref("students/"+this.props.userId+"/bio");
         userRef.set(document.getElementById("textInputVal").value)
         userRef.on('value', (snapshot) => {
             let tasks = snapshot.val();
