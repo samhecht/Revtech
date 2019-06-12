@@ -67,9 +67,9 @@ function Students(){
               container
               spacing={3}
               style={{
-                width: "100%",
+                width: "70%",
                 textAlign: "center",
-                marginLeft: "4%"
+                marginLeft: "15%"
               }}
             >
             {renderStudents()}
