@@ -66,10 +66,13 @@ export default function Posting(props) {
                     height='100%'                    
                 >
                     <Typography variant="h4" component="h3">
-                        {props.contract.company}
+                        {props.contract.companyName}
                     </Typography>
                     <Typography variant="h5" component="h3">
-                        {props.contract.email}
+                        {props.contract.companyEmail}
+                    </Typography>
+                    <Typography variant="h5" component="h3">
+                        {props.contract.project}
                     </Typography>
                     <Typography variant="body1" component="h3">
                         {props.contract.description}

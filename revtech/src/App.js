@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home.js'
+import Approval from './adminpage/Approval.js'
 import Companies from './pages/Companies.js'
 import CompanyProfile from './companypages/CompanyProfile.js'
 import Contract from './companypages/Contract.js'
@@ -32,59 +33,53 @@ class App extends React.Component{
 
   // example of how to access the database
   componentDidMount(){
-
+  
     firebase.auth().onAuthStateChanged(data => {
       if (!data){  this.setState({user: null});
-      this.setState({permission: null});
-      this.setState({loading: false})
+        this.setState({permission: null});
+        this.setState({loading: false})
     
-    }
-      else {this.setState({ user: data}, ()=> {
-      
-      let permission = null;
-      
-    let id = this.state.user.uid
+      } else {
+        this.setState({ user: data}, ()=> {
+        
+        let permission = null;
+        
+        let id = this.state.user.uid
 
-      var ref = firebase.database().ref("students/" );
-      ref.once("value")
-        .then(function(snapshot) {
-          if(snapshot.child(id).val() !==null){
-          permission = snapshot.child(id).val().permission}
-          console.log(permission)
+        var ref = firebase.database().ref("students/" );
+        ref.once("value")
+          .then(function(snapshot) {
+            if(snapshot.child(id).val() !==null){
+            permission = snapshot.child(id).val().permission}
+            console.log(permission)
+          });
+
+        
+        const companiesRef = firebase.database().ref('companies')
+          companiesRef.orderByChild('companyid').equalTo(this.state.user.uid).on("value", function(snapshot) {
+    
+          snapshot.forEach(function(child) { 
+            permission = (child.val().permission);
+              // this.setState({permission: permission}, ()=> {this.setState({loading: false})})
+            console.log(child.val().permission)
+          
+            });
+          });
+
+          var timeout = setInterval(()=>{
+            if(permission!==null) { 
+                clearInterval(timeout); 
+                console.log(permission); 
+                this.setState({permission: permission}, () => {
+                  console.log(this.state.permission);
+                  this.setState({loading: false})
+                });
+            } 
+          }, 100);
         });
-
-       
-       const companiesRef = firebase.database().ref('companies')
-      companiesRef.orderByChild('companyid').equalTo(this.state.user.uid).on("value", function(snapshot) {
-   
-        snapshot.forEach((function(child) { 
-         permission = (child.val().permission);
-          // this.setState({permission: permission}, ()=> {this.setState({loading: false})})
-          console.log(child.val().permission)
-       
-        }))});
-
-        var timeout = setInterval(()=>
-{ if(permission!==null) { clearInterval(timeout); console.log(permission); 
-    this.setState({permission: permission}, ()=> {console.log(this.state.permission);
-      this.setState({loading: false})
-
-    })
-} }, 100);
-        
-        
-        
       }
-      
-      );
-      
-      
-    }
- 
-    
+      this.setState({loading: false})
     });
-  
-
   }
 
   
@@ -100,6 +95,7 @@ class App extends React.Component{
 
              <Router>
         <Route exact path="/" component={Home}/>
+        <Route exact path="/Approval" component={Approval}/>
         <Route exact path="/Companies" component={Companies}/>
         <PrivateRoute path="/CompanyProfile" exact component = {CompanyProfile} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
         <PrivateRoute path="/Contract" exact component = {Contract} user={this.state.user} permission = {this.state.permission} permissionType="company"/>

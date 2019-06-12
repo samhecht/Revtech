@@ -83,6 +83,10 @@ function Navbar(props){
     }
     console.log(user);
 
+    const logoStyle = {
+      color: 'white'
+    }
+
     return (
     <div className={classes.root}>
       <Box
@@ -98,7 +102,7 @@ function Navbar(props){
         >
           <Avatar alt="logo" src={logo}></Avatar>
           <Link style={linkStyle} to="/">
-            <Typography variant="h4" to="/" >
+            <Typography variant="h4" to="/" style={logoStyle}>
               RevTek
             </Typography>
           </Link>
@@ -113,7 +117,7 @@ function Navbar(props){
         >
 
           {(user && perm === "student") 
-            ? <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+            ? <Button color="inherit"><Link style={linkStyle} to="/Marketlace">Marketplace</Link></Button>
             : null
           }
           {(user && perm === "company") 

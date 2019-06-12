@@ -6,6 +6,7 @@ import firebase from '../firebase/firebase';
 
 export default function Marketplace() {
     const [postings, setPostings] = useState([]);
+
     const titleStyle = {
         marginTop: "5%",
     }

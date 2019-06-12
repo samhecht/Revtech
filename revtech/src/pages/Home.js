@@ -66,18 +66,20 @@ function Home() {
   const heroTitle = {
     fontSize: '50px',
     fontWeight: 'normal',
-    marginBottom: '5px'
+    marginBottom: '5px',
+    color: 'white'
   }
   const heroTagline = {
+    fontWeight: 'normal',
+    color: 'white',
     fontSize: '24px',
     fontWeight: 'normal'
   }
 
   const buttonStyle = {
     backgroundColor: '#73C2FB',
-    // backgroundColor: '#FFA711',
-    width: '120px',
-    height: '60px',
+    width: '100px',
+    height: '55px',
     fontSize: '20px',
     color: 'white',
     textTransform: 'capitalize',
@@ -127,7 +129,8 @@ function Home() {
     lineHeight: '1.2',
     fontSize: '40px',
     textDecoration: 'underline',
-    textDecorationColor: '#73C2FB'
+    textDecorationColor: '#73C2FB',
+    fontSize: '36px',
     // color: '#73C2FB'
   }
   const h4 = {
@@ -137,7 +140,7 @@ function Home() {
     lineHeight: '2'
   }
   const imgStyle = {
-    width: '75%',
+    width: '70%',
     boxShadow: '-15px 15px 30px #73C2FB',
     borderRadius:'50%'
   }
