@@ -22,7 +22,7 @@ function Home() {
   const classes = useStyles();
 
   const imageBoxStyle = {
-    height:'825px',
+    height:'650px',
     overflow: 'hidden',
     position: 'relative',
   }
@@ -64,21 +64,21 @@ function Home() {
   }
 
   const heroTitle = {
-    fontSize: '60px',
+    fontSize: '50px',
     fontWeight: 'normal',
     marginBottom: '5px'
   }
   const heroTagline = {
-    fontSize: '30px',
+    fontSize: '24px',
     fontWeight: 'normal'
   }
 
   const buttonStyle = {
     backgroundColor: '#73C2FB',
     // backgroundColor: '#FFA711',
-    width: '150px',
-    height: '70px',
-    fontSize: '24px',
+    width: '120px',
+    height: '60px',
+    fontSize: '20px',
     color: 'white',
     textTransform: 'capitalize',
     borderRadius: '5%',
@@ -88,7 +88,7 @@ function Home() {
   const section = {
     display: 'flex',
     width: '100%',
-    height: '600px',
+    height: '330px',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -125,13 +125,14 @@ function Home() {
   const h3 = {
     textAlign: 'left',
     lineHeight: '1.2',
+    fontSize: '40px',
     textDecoration: 'underline',
     textDecorationColor: '#73C2FB'
     // color: '#73C2FB'
   }
   const h4 = {
     textAlign: 'left',
-    fontSize: '26px',
+    fontSize: '20px',
     marginTop: '25px',
     lineHeight: '2'
   }

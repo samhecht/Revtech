@@ -65,6 +65,9 @@ export default function Posting(props) {
                     width='100%'
                     height='100%'                    
                 >
+                    <Typography variant="h4" component="h3">
+                        {props.contract.company}
+                    </Typography>
                     <Typography variant="h5" component="h3">
                         {props.contract.email}
                     </Typography>
