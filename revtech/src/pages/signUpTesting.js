@@ -13,6 +13,8 @@ import { Redirect } from 'react-router-dom';
 import Navbar from './../components/Navbar.js';
 import Snackbar from "@material-ui/core/Snackbar";
 
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
@@ -32,7 +34,7 @@ function getSteps() {
 
 
 
-function SignUpNew() {
+function SignUpNew(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [email, setEmail] = useState("");
@@ -45,6 +47,8 @@ function SignUpNew() {
   const [finished, setFinished] = useState(false);
   const [message, setMessage] = useState("");
   const steps = getSteps();
+
+  const { history } = props;
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -65,7 +69,9 @@ function SignUpNew() {
     }
   }
 
-  function handleNext() {
+  function handleNext(props) {
+
+
 
     if(email !== "" && pwd !== "" && firstName !== "" && lastName !==""){
       if(activeStep == 0){
@@ -104,6 +110,8 @@ function SignUpNew() {
           const userRef = firebase.database().ref("students/"+firebase.auth().currentUser.uid);
           userRef.update(currUser);
           setFinished(true);
+          history.push('/')
+
         // })
         // .catch(() => {
         //     console.log("error creating user");
