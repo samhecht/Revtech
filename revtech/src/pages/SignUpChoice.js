@@ -11,7 +11,7 @@ import { withRouter } from "react-router-dom";
 
 import Navbar from './../components/Navbar.js';
 import code from './code.jpg'
-
+import red from '@material-ui/core/colors/red';
 const useStyles = makeStyles(theme => ({
  '@global': {
    body: {
@@ -34,17 +34,21 @@ const useStyles = makeStyles(theme => ({
  },
  submit: {
    margin: theme.spacing(3, 0, 2),
+  
  },
 
  buttonStyle: {
   backgroundColor: '#73C2FB',
-  
+
   fontSize: '20px',
   color: 'white',
   
   borderRadius: '5%',
   marginTop: '15px',
-  marginBottom: '50px'
+  marginBottom: '50px',
+  border: '3px solid white',
+ 
+ 
  },
 
  imageStyle :{
@@ -109,6 +113,8 @@ const { history } = props;
  const handleStudent = () =>{
     history.push('/SignUpStudent')
 }
+
+
  
 
  return (
@@ -125,10 +131,12 @@ const { history } = props;
      <h2 className={classes.heroTagline}>Are you a company looking to recruit talented interns for new projects?</h2>
 
          <Button
-           type="submit"
+          // type="submit"
            
-           variant="contained"
-           color="primary"
+          //  variant="contained"
+           //color='primary'
+          
+          
            className={classes.buttonStyle}
            onClick={handleCompany}
          >
@@ -139,10 +147,10 @@ const { history } = props;
 
          <Button 
         
-           type ="submit"
+          //  type ="submit"
            
-           variant="contained"
-           color="primary"
+           //variant="contained"
+          //color="primary"
            className={classes.buttonStyle}
            onClick={handleStudent}
          >

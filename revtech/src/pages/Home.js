@@ -78,13 +78,18 @@ export default function Home(props) {
 
   const buttonStyle = {
     backgroundColor: '#73C2FB',
-    width: '100px',
-    height: '55px',
-    fontSize: '20px',
-    color: 'white',
-    textTransform: 'capitalize',
-    borderRadius: '5%',
-    marginTop: '20px'
+
+  fontSize: '20px',
+  color: 'white',
+  
+  borderRadius: '5%',
+  marginTop: '15px',
+  marginBottom: '50px',
+  border: '3px solid white',
+  '&:hover': {
+    background: 'blue'
+  }
+
   }
 
   const section = {
