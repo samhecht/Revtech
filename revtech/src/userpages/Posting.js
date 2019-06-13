@@ -29,7 +29,9 @@ export default function Posting(props) {
         height: props.height,
         marginLeft: props.leftMargin,
         marginTop: '4%',
-        textAlign: 'center'
+        textAlign: 'center',
+        border: '2px solid #000000'
+
     }
 
     useEffect(() => {

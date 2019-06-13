@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Navbar from './../components/Navbar.js'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +8,7 @@ import hero from '../images/hero.jpg';
 import app from '../images/app.jpeg';
 import office from '../images/office.jpeg';
 import students from '../images/students.jpeg';
-
+import firebase from '../firebase/firebase';
 import { Link } from 'react-router-dom';
 
 
@@ -149,6 +149,25 @@ export default function Home(props) {
     color: 'white',
     textDecoration: 'none'
   }
+  const [isUser, setIsUser] = useState(false);
+
+  
+
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        setIsUser(true)
+      }
+  
+      else{
+        setIsUser(false)
+      }
+    });
+
+  }, []);
+
+
   return (
     <div>
       <Navbar/>
@@ -157,7 +176,7 @@ export default function Home(props) {
           <Box style={overlayBoxText}>
               <h1 style={heroTitle}>A tech hub for students and companies</h1>
               <h2 style={heroTagline}>Discover top talent. Connect with industry professionals. Work on meaningful projects.</h2>
-              <Button style={buttonStyle}><Link style={linkStyle} to="/SignIn">Join Us</Link></Button>
+             { (!isUser) ? <Button style={buttonStyle}><Link style={linkStyle} to="/SignIn">Join Us</Link></Button> : null}
           </Box>
         </Box>
 
