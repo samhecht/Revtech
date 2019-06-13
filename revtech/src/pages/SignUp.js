@@ -93,7 +93,7 @@ const { history } = props;
           
         }
         
-    usersRef.push(data); //might change users
+    usersRef.push(data); 
         history.push('/')
         
       },
