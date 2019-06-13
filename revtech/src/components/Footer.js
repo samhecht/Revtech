@@ -84,10 +84,10 @@ function Footer(props){
               <Box className={classes.line}></Box>
             </Box>
             <Box className={classes.creators}>
-              <Creator name="Emily Zou" github="https://github.com/e-zou" linkedin="https://www.linkedin.com/in/emily-zou/"/>
               <Creator name="Maggie Bujor" github="https://github.com/maggiebujor" linkedin="https://www.linkedin.com/in/maggie-bujor-33917916b/"/>
               <Creator name="Sammy Hecht" github="https://github.com/samhecht" linkedin="https://www.linkedin.com/in/samuel-hecht-287901152/"/>
               <Creator name="Max Rifkin" github="https://github.com/mfrifkin" linkedin="https://www.linkedin.com/in/max-rifkin-26438b14a/"/>
+              <Creator name="Emily Zou" github="https://github.com/e-zou" linkedin="https://www.linkedin.com/in/emily-zou/"/>
             </Box>
           </Box>
           <Box className={classes.year}>

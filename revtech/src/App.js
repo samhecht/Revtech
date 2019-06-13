@@ -124,9 +124,6 @@ class App extends React.Component{
         <PrivateRoute path="/privatestudent" exact component = {Companies} user={this.state.user} permission = {this.state.permission} permissionType="student"/> 
       </Router>
 
-
-      
-   
       </div>
     );
   }
