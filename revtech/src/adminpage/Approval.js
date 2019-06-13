@@ -1,23 +1,15 @@
 import React, {Component} from 'react';
 import Navbar from '../components/Navbar.js';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import firebase from "../firebase/firebase";
-import { flexbox } from '@material-ui/system';
+import AdminComment from "./AdminComment";
 
 const companyName = {
     fontWeight: 'bold'
@@ -163,6 +155,7 @@ export default class Approval extends React.Component {
             ))}
             </TableBody>
             </Table>
+            <AdminComment contractId={this.state.contracts[0] ? this.state.contracts[0].contractid : null}/>
             </div>
         );
     }
