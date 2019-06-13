@@ -176,7 +176,7 @@ export default function Home(props) {
           <Box style={overlayBoxText}>
               <h1 style={heroTitle}>A tech hub for students and companies</h1>
               <h2 style={heroTagline}>Discover top talent. Connect with industry professionals. Work on meaningful projects.</h2>
-             { (!isUser) ? <Button style={buttonStyle}><Link style={linkStyle} to="/SignIn">Join Us</Link></Button> : null}
+             { (!isUser) ? <Button style={buttonStyle}><Link style={linkStyle} to="/SignUp">Join Us</Link></Button> : null}
           </Box>
         </Box>
 

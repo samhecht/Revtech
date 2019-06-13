@@ -7,7 +7,7 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 import firebase from '../firebase/firebase';
-
+import '../App.css'
 
 export default function Posting(props) {
 
@@ -30,7 +30,7 @@ export default function Posting(props) {
         marginLeft: props.leftMargin,
         marginTop: '4%',
         textAlign: 'center',
-        border: '2px solid #000000'
+ 
 
     }
 
@@ -65,7 +65,9 @@ export default function Posting(props) {
                     flexDirection='column'
                     justifyContent='space-evenly'
                     width='100%'
-                    height='100%'                    
+                    height='100%' 
+                    boxShadow = {7}
+                                    
                 >
                     <Typography variant="h4" component="h3">
                         {props.contract.companyName}
@@ -84,6 +86,7 @@ export default function Posting(props) {
                         flexDirection='row'
                         justifyContent='flex-end'
                         marginRight='5%'
+                       
                     >
                     {props.arrow? (<ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>):<div></div>}
                     </Box>

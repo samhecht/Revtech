@@ -27,6 +27,7 @@ export default function Comment(props) {
                     display='flex'
                     flexDirection='column'
                     justifyContent='space-evenly'
+                    boxShadow = {7}
                 >
                 <Typography>
                     {props.comment.userEmail}
