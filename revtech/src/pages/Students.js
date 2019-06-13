@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import firebase from '../firebase/firebase';
 import axios from 'axios';
 import clsx from 'clsx';
+import Box from '@material-ui/core/Box';
 
 function Students(){
     const [students, setStudents] = useState([]);
@@ -90,6 +91,7 @@ function MediaCard(props) {
     const useStyles = makeStyles({
         card: {
           maxWidth: 345,
+         
         },
         media: {
           height: 140,
@@ -117,6 +119,11 @@ function MediaCard(props) {
 
 
   return (
+    <Box
+    
+    boxShadow = {7}
+    >
+
     <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
@@ -166,5 +173,6 @@ function MediaCard(props) {
         </CardContent>
       </Collapse>
     </Card>
+    </Box>
   );
 }
