@@ -72,7 +72,9 @@ class App extends React.Component{
               permission = snapshot.child(id).val().permission}
      
           }))
-
+          if (id === 'ROLEjTfVWdba8LJYDC6PfsVEZhz2'){
+            permission = 'admin'
+          }
           var timeout = setInterval(()=>{
             if(permission!==null) { 
                 clearInterval(timeout); 
@@ -137,7 +139,7 @@ const PrivateRoute = ({ component: Component, user, permission, permissionType, 
       
       if (user){
         if(permission){
-        if (permission === permissionType || permissionType ==="all"){
+        if (permission === 'admin' || permission === permissionType || permissionType ==="all"){
         return <Component user={user} {...props} />;}}
       } else {
 
