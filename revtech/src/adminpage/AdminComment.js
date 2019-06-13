@@ -33,24 +33,45 @@ export default class Approval extends React.Component {
     }
 
     componentDidMount() {
-       const contractId = this.props.contractId;
-
+       const contractDesc = this.props.contractDesc;
+       console.log(contractDesc);
        const commentRef = firebase.database().ref('/comments');
        commentRef.on("value", snap => {
            const commentObj = snap.val();
            const commentKeys = Object.keys(commentObj);
 
-           const comments = commentKeys.filter(key => commentObj[key].parentContract === contractId);
-           this.setState({
-               comments: comments,
+           const comments = commentKeys.map(key => commentObj[key])
+           const associated = [];
+           
+           const contractRef = firebase.database().ref('/contracts');
+           contractRef.on("value", snap => {
+               let currCon;
+                const contractObj = snap.val();
+                const contractKeys = Object.keys(contractObj);
+                contractKeys.forEach(key => {
+                    if (contractObj[key].description === contractDesc) {
+                        currCon = key;
+                    }
+                });
+                commentKeys.forEach(key => {
+                    if (commentObj[key].parentContract === currCon){
+                        associated.push(commentObj[key]);
+                    }
+                });
+                console.log(currCon);
+                console.log(associated);
+                this.setState({
+                    comments: associated,
+                });
            });
+
        });
 
     }
 
     
     render() {
-        console.log(this.props.contractId)
+
         return (
             <div>
             <Navbar/>

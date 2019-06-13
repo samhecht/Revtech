@@ -25,6 +25,8 @@ export default class Approval extends React.Component {
     state = {
         contracts : [],
         approved : "",
+        showComments : false,
+        clickedContract : null,
     }
 
     handleDelete = (contractid) => {
@@ -71,6 +73,11 @@ export default class Approval extends React.Component {
         })
     }
 
+    displayComments(contract) {
+        this.setState({showComments: true});
+        this.setState({clickedContract: contract});
+    }
+
     getContracts = () => {
         const contractsRef = firebase.database().ref('contracts');
         //Displays All Contracts for every user
@@ -114,6 +121,9 @@ export default class Approval extends React.Component {
 
     render() {
         console.log(this.state.contracts);
+        if (this.state.showComments) {
+            return <AdminComment contractDesc={this.state.clickedContract.description}/>
+        }
         return (
             <div>
             <Navbar/>
@@ -146,7 +156,7 @@ export default class Approval extends React.Component {
                 <TableRow key={id}>
                     {/* <TableCell>{contract.time}</TableCell> */}
                     <TableCell>{contract.date}</TableCell>
-                    <TableCell>{contract.project}</TableCell>
+                    <TableCell onClick={() => this.displayComments(contract)}>{contract.project}</TableCell>
                     <TableCell>{contract.trimmedDescription}</TableCell>
                     <TableCell>{contract.status}</TableCell>
                     <TableCell><Button onClick={() => this.handleApprove(contract.contractid)}> Approve </Button></TableCell>
@@ -155,7 +165,7 @@ export default class Approval extends React.Component {
             ))}
             </TableBody>
             </Table>
-            <AdminComment contractId={this.state.contracts[0] ? this.state.contracts[0].contractid : null}/>
+            
             </div>
         );
     }
