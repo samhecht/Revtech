@@ -28,6 +28,7 @@ class ProfilePage extends React.Component {
          console.log(userId)
          userRef.on('value', (snapshot) => {
           let data = snapshot.val();
+          console.log(data.skills)
              this.setState({
               bio: data.bio,
               last: data.last,
@@ -37,7 +38,7 @@ class ProfilePage extends React.Component {
                   
              
           
-          console.log(this.state);
+         
           
       });
          
@@ -73,7 +74,7 @@ class ProfilePage extends React.Component {
            {/* <p style = {{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{this.state.bio}</p> */}
            <div className = "skillz" style={{ fontSize: 30, display: 'flex', justifyContent: 'start', flexDirection: 'row', height: '50px' }}> 
            <div style = {{marginRight:'10px'}}>Skills: </div>
-    <div style = {{lineHeight: '16px'}}>{this.state.skills.length>0?<EditTextfieldSmall text = {this.state.skills} userId ={this.state.userId} skills = {this.state.skills} />:<div></div>}</div>
+    <div style = {{lineHeight: '16px'}}>{this.state.skills.length>0?<EditTextfieldSmall text = {this.state.skills} userId ={this.state.userId} />:<div></div>}</div>
            
            </div>
            <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Active Contracts</div>
