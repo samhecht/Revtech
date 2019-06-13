@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
-import Navbar from './../components/Navbar.js'
+import Navbar from './../components/Navbar.js';
+import Footer from './../components/Footer.js'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -213,7 +214,7 @@ export default function Home(props) {
           <img src={app} style={imgStyle}></img>
         </Box>
       </Box>
-
+      <Footer/>
     </div>
   );
 
