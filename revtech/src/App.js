@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home.js'
+import Approval from './adminpage/Approval.js'
 import Companies from './pages/Companies.js'
 import CompanyProfile from './companypages/CompanyProfile.js'
 import Contract from './companypages/Contract.js'
@@ -8,7 +9,7 @@ import Students from './pages/Students.js'
 import SignIn from './pages/SignIn'
 import SignUpNew from './pages/signUpTesting.js'
 import SignUp from './pages/SignUp.js'
-import StepperSignUp from './pages/StepperSignUp'
+
 import SignUpChoice from './pages/SignUpChoice.js'
 
 import ProfilePage from './pages/ProfilePage'
@@ -24,53 +25,94 @@ class App extends React.Component{
     super(props);
     this.state = {
       test: "",
+      user: null,
+      loading: true,
+      permission: null
     }
   }
 
   // example of how to access the database
   componentDidMount(){
-    const sessionRef = firebase.database().ref('/Test');
+  
+    firebase.auth().onAuthStateChanged(data => {
+      if (!data){  this.setState({user: null});
+        this.setState({permission: null});
+        this.setState({loading: false})
     
-    sessionRef.on("value", snap => {
-      console.log(snap.val());
-      this.setState({
-        test: snap.val(),
-      });
-    })
+      } else {
+        this.setState({ user: data}, ()=> {
+        
+        let permission = null;
+        
+        let id = this.state.user.uid
+
+        var ref = firebase.database().ref("students/" );
+        ref.once("value")
+          .then(function(snapshot) {
+            if(snapshot.child(id).val() !==null){
+            permission = snapshot.child(id).val().permission}
+            console.log(permission)
+        });
+
+        
+          const companiesRef = firebase.database().ref('companies')
+          companiesRef.orderByChild('companyid').equalTo(this.state.user.uid).on("value", function(snapshot) {
+    
+          snapshot.forEach(function(child) { 
+            permission = (child.val().permission);
+              // this.setState({permission: permission}, ()=> {this.setState({loading: false})})
+            console.log(child.val().permission)
+          
+            });
+          });
+
+          var timeout = setInterval(()=>{
+            if(permission!==null) { 
+                clearInterval(timeout); 
+                console.log(permission); 
+                this.setState({permission: permission}, () => {
+                  console.log(this.state.permission);
+                  this.setState({loading: false})
+                });
+            } 
+          }, 100);
+        });
+      }
+      this.setState({loading: false})
+    });
   }
 
   
 
   render() {
-    // if (this.state.test){
-    //   return (
-    //     <p>{this.state.test}</p>
-    //   )
-    // }
-
+ 
+    if(this.state.loading){
+      return <div></div>
+    }
     return (
       <div className="App">
 
-      <Router>
+
+             <Router>
         <Route exact path="/" component={Home}/>
+        <Route exact path="/Approval" component={Approval}/>
         <Route exact path="/Companies" component={Companies}/>
-        <Route exact path="/CompanyProfile" component={CompanyProfile}/>
-        <Route exact path="/Contract" component={Contract}/>
-        <Route exact path="/Students" component={Students}/>
+        <PrivateRoute path="/CompanyProfile" exact component = {CompanyProfile} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
+        <PrivateRoute path="/Contract" exact component = {Contract} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
+        <PrivateRoute path="/Students" exact component = {Students} user={this.state.user} permission = {this.state.permission} permissionType="all"/>
+
         <Route path="/SignIn" exact component={SignIn} />
         <Route path="/SignUpCompany" exact component={SignUp} />
         <Route path="/SignUpStudent" exact component={SignUpNew} />
         <Route path="/SignUp" exact component={SignUpChoice} />
-        <Route path="/profilepage" exact component={ProfilePage} />
-        {/* <Route path="/StepperSignUp" exact component={StepperSignUp} /> */}
+        <Route path="/profilepage" exact component = {ProfilePage} />
 
-       {/* <Route path="/SignUp" exact component={SignUp} /> */}
-        <Route path="/Marketplace" exact component={Marketplace}/>
-
+        <PrivateRoute path="/MarketPlace" exact component = {Marketplace} user={this.state.user} permission = {this.state.permission} permissionType="student"/>
+        <PrivateRoute path="/privatestudent" exact component = {Companies} user={this.state.user} permission = {this.state.permission} permissionType="student"/> 
       </Router>
-       
 
-        {/* <PrivateRoute path="/" exact component={TimerPage} user={user} permissionType="user"/> */}
+
+      
    
       </div>
     );
@@ -78,22 +120,22 @@ class App extends React.Component{
 }
 
 
-// create a private route to check if the user is of 'user' type
-const PrivateRoute = ({ component: Component, user, permissionType, ...rest }) => (
+
+const PrivateRoute = ({ component: Component, user, permission, permissionType, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (user && user.permission === permissionType){
+      
+      if (user && (permission === permissionType || permissionType ==="all")){
         return <Component user={user} {...props} />;
       } else {
-        return <Redirect to="/signIn" />;
+        return <Redirect to="/" />;
       }
       
     }
   }
   />
 );
-
 
 
 
