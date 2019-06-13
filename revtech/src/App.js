@@ -45,14 +45,11 @@ class App extends React.Component{
         let permission = null;
         
         let id = this.state.user.uid
+        console.log(id)
+        console.log(this.state.user.uid);
+        
 
-        var ref = firebase.database().ref("students/" );
-        ref.once("value")
-          .then(function(snapshot) {
-            if(snapshot.child(id).val() !==null){
-            permission = snapshot.child(id).val().permission}
-            console.log(permission)
-        });
+
 
         
           const companiesRef = firebase.database().ref('companies')
@@ -66,12 +63,22 @@ class App extends React.Component{
             });
           });
 
+          var ref = firebase.database().ref("students");
+          ref.on("value",
+            (function(snapshot) {
+              console.log(snapshot.child(id).val())
+              if(snapshot.child(id).val() !==null){
+                console.log(snapshot.child(id).val())
+              permission = snapshot.child(id).val().permission}
+     
+          }))
+
           var timeout = setInterval(()=>{
             if(permission!==null) { 
                 clearInterval(timeout); 
-                console.log(permission); 
+             
                 this.setState({permission: permission}, () => {
-                  console.log(this.state.permission);
+                  console.log("current permission: "+this.state.permission);
                   this.setState({loading: false})
                 });
             } 
@@ -97,9 +104,6 @@ class App extends React.Component{
         <Route exact path="/" component={Home}/>
         <Route exact path="/Approval" component={Approval}/>
         <Route exact path="/Companies" component={Companies}/>
-        <PrivateRoute path="/CompanyProfile" exact component = {CompanyProfile} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
-        <PrivateRoute path="/Contract" exact component = {Contract} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
-        <PrivateRoute path="/Students" exact component = {Students} user={this.state.user} permission = {this.state.permission} permissionType="all"/>
 
         <Route path="/SignIn" exact component={SignIn} />
         <Route path="/SignUpCompany" exact component={SignUp} />
@@ -107,7 +111,12 @@ class App extends React.Component{
         <Route path="/SignUp" exact component={SignUpChoice} />
         <Route path="/profilepage" exact component = {ProfilePage} />
 
-        <PrivateRoute path="/MarketPlace" exact component = {Marketplace} user={this.state.user} permission = {this.state.permission} permissionType="student"/>
+
+        <PrivateRoute path="/CompanyProfile" exact component = {CompanyProfile} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
+        <PrivateRoute path="/Contract" exact component = {Contract} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
+        <PrivateRoute path="/Students" exact component = {Students} user={this.state.user} permission = {this.state.permission} permissionType="all"/>
+
+        <PrivateRoute path="/Marketplace" exact component = {Marketplace} user={this.state.user} permission = {this.state.permission} permissionType="student"/>
         <PrivateRoute path="/privatestudent" exact component = {Companies} user={this.state.user} permission = {this.state.permission} permissionType="student"/> 
       </Router>
 
@@ -126,9 +135,12 @@ const PrivateRoute = ({ component: Component, user, permission, permissionType, 
     {...rest}
     render={props => {
       
-      if (user && (permission === permissionType || permissionType ==="all")){
-        return <Component user={user} {...props} />;
+      if (user){
+        if(permission){
+        if (permission === permissionType || permissionType ==="all"){
+        return <Component user={user} {...props} />;}}
       } else {
+
         return <Redirect to="/" />;
       }
       
