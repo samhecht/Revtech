@@ -52,10 +52,10 @@ class App extends React.Component{
             if(snapshot.child(id).val() !==null){
             permission = snapshot.child(id).val().permission}
             console.log(permission)
-          });
+        });
 
         
-        const companiesRef = firebase.database().ref('companies')
+          const companiesRef = firebase.database().ref('companies')
           companiesRef.orderByChild('companyid').equalTo(this.state.user.uid).on("value", function(snapshot) {
     
           snapshot.forEach(function(child) { 
