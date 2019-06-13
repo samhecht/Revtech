@@ -12,6 +12,7 @@ import '../App.css'
 export default function Posting(props) {
 
     const [comments, setComments] = useState([]);
+    const [reload, setReload] = useState(false);
 
     const [hideComments, setHideComments] = useState(true);
 
@@ -46,7 +47,7 @@ export default function Posting(props) {
             currKeys.forEach(key => {
                 const commentContractId = currComments[key].parentContract;
                 if (commentContractId === parentKey) {
-                    tempComments.push(<Comment hidden={hideComments} comment={currComments[key]} />);
+                    tempComments.push(<Comment reloadParent={setReload} hidden={hideComments} comment={currComments[key]} comKey={key}/>);
                 }
             });
         });
@@ -57,7 +58,10 @@ export default function Posting(props) {
         getComments();
     })
 
-
+    if (reload) {
+        getComments();
+        setReload(false);
+    }
 
     return (
         <React.Fragment>
