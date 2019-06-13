@@ -40,6 +40,12 @@ function Navbar(props){
 
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
+
+        if(user.uid ==='ROLEjTfVWdba8LJYDC6PfsVEZhz2'){
+          setPerm('admin');
+          setUser(user);
+        }
+        else{
         let studRef = firebase.database().ref(`/students/${user.uid}`);
         const compRef = firebase.database().ref('/companies');
         compRef.on("value", snap => {
@@ -57,10 +63,12 @@ function Navbar(props){
           setPerm('student');
         } 
         setUser(user);
-
+      }
       } else {
         setUser(null);
       }
+
+
     });
 
     const navBarStyle = {
@@ -132,9 +140,7 @@ function Navbar(props){
                 <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
                 <Button color="inherit"><Link style={linkStyle} to="/Contract">Contract</Link></Button>
                 <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Profile</Link></Button>
-                <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
-                <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
-                <Button color="inherit" style={specialButtonStyle} onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/Approval">Approval</Link></Button>
               </React.Fragment>
             : null
           }
