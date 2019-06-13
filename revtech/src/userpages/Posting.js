@@ -34,7 +34,7 @@ export default function Posting(props) {
 
     }
 
-    useEffect(() => {
+    const getComments = () => {
         const parentKey = props.parentId;
 
         const commentRef = firebase.database().ref('/comments');
@@ -51,6 +51,10 @@ export default function Posting(props) {
             });
         });
         setComments(tempComments);
+    }
+
+    useEffect(() => {
+        getComments();
     })
 
 
