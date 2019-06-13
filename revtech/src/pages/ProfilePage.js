@@ -28,7 +28,7 @@ class ProfilePage extends React.Component {
          console.log(userId)
          userRef.on('value', (snapshot) => {
           let data = snapshot.val();
-          console.log(data.skills)
+          
              this.setState({
               bio: data.bio,
               last: data.last,
