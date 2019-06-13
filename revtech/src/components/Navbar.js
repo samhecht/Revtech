@@ -127,6 +127,17 @@ function Navbar(props){
               </React.Fragment>
             : null
           }
+          {(user && perm === "admin")
+            ? <React.Fragment>
+                <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/Contract">Contract</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/CompanyProfile">Profile</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
+                <Button color="inherit"><Link style={linkStyle} to="/Students">Students</Link></Button>
+                <Button color="inherit" style={specialButtonStyle} onClick={handleLogOut}><Link style={linkStyle} to="/">Logout</Link></Button>
+              </React.Fragment>
+            : null
+          }
           {(user) 
             ? <React.Fragment>
                 <Button color="inherit"><Link style={linkStyle} to="/Companies">Companies</Link></Button>
