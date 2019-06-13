@@ -99,7 +99,7 @@ function SignUpNew() {
             linkedIn: linkedIn,
             bio: bio,
             permission: "student",
-            skills: ""
+            skills: "empty"
           }
           const userRef = firebase.database().ref("students/"+firebase.auth().currentUser.uid);
           userRef.update(currUser);

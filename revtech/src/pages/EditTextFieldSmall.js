@@ -12,11 +12,8 @@ class EditTextFieldSmall extends React.Component {
         value: this.props.text,
         editMode: false
     }
-    componentDidMount() {
-       console.log(this.props.text)
-       console.log(this.props.userKey)
-       console.log(this.props.skills)
-    }
+   
+   
 
     changeEditMode = () => {
         this.setState({ editMode: !this.state.editMode })
@@ -26,15 +23,25 @@ class EditTextFieldSmall extends React.Component {
 
     updateValue = () => {
         //set state to be the value in the text field
+        console.log("in updateValue")
+        console.log(document.getElementById("textInputVal").value.length)
+        let newText;
+        if(document.getElementById("textInputVal").value.length==0){
+            newText = "empty"
+        }
+        else{
+            newText = document.getElementById("textInputVal").value
+        }
+        console.log(newText)
         this.setState({
             editMode: false,
-            value: document.getElementById("textInputVal").value
+            value: newText
         })
 
         //update firebase
         console.log(this.props.userId)
         const userRef = firebase.database().ref("students/"+this.props.userId+"/skills");
-        userRef.set(document.getElementById("textInputVal").value)
+        userRef.set(newText)
         userRef.on('value', (snapshot) => {
             let tasks = snapshot.val();
             console.log(tasks)
@@ -47,12 +54,20 @@ class EditTextFieldSmall extends React.Component {
 
     //renders the edit text view
     renderEditView = () => {
+        let text;
+        if(this.state.value=="empty"){
+            text = "";
+        }else{
+            text = this.state.value;
+        }
 
         return <div style = {{display: 'flex', flexDirection:'row', marginTop: '10px'}}>
             {/* <input type="text" defaultValue={this.state.value} ref = "textInputVal">
             </input> */}
+           
             <Input
-                defaultValue={this.state.value}
+                defaultValue={text}
+                placeholder="skill 1, skill 2, skill 3, ..."
                 autosize={{ minRows: 1, maxRows: 2  }}
                 style = {{width:'350px'}}
                 id = "textInputVal"
@@ -70,8 +85,11 @@ class EditTextFieldSmall extends React.Component {
 
     // renders a regular text field
     renderDefaultView = () => {
+        console.log("rendering default")
+        console.log(this.state.value)
         return <div onDoubleClick={this.changeEditMode}>
-            <p style={{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>{this.state.value}</p>
+            <p style={{ fontSize: 15, marginTop: 20, textAlign: 'left', maxWidth: 550 }}>
+            {this.state.value=="empty"?"Double Click Me To Add Skills!":this.state.value}</p>
         </div>
 
 
