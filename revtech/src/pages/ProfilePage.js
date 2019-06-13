@@ -8,7 +8,7 @@ import firebase from '../firebase/firebase.js';
 import EditTextfield from './editTextField'
 import EditTextfieldSmall from './EditTextFieldSmall'
 import ProfilePosting from './../userpages/ProfilePosting.js'
-
+import EditTextfieldHref from './EditTextFieldHref'
 
 const text = "Immediately regret falling into bathtub woops poop hanging from butt must get rid run run around house drag poop on floor maybe it comes off woops left brown marks on floor human slave clean lick butt now yet meow for stare out the window. Lick yarn hanging out of own butt. Stuff and things knock over christmas tree meow meow, i tell my human yet find empty spot in cupboard and sleep all day but i'm going to lap some water out of my master's cup meow";
 class ProfilePage extends React.Component {
@@ -18,7 +18,8 @@ class ProfilePage extends React.Component {
 
     skills: "",
     commentIds: null, 
-    contractInfo:[{}]
+    contractInfo:[{}],
+    github: null
 
   }
 
@@ -35,7 +36,9 @@ class ProfilePage extends React.Component {
             bio: data.bio,
             last: data.last,
             skills: data.skills,
-            userId: userId
+            userId: userId,
+            github: data.github,
+            linkedIn: data.linkedIn
           })
         });
         //fetch comments
@@ -79,6 +82,7 @@ class ProfilePage extends React.Component {
   }
 
   mapContracts = () =>{
+    
     let contracts = this.state.contractInfo;
     return contracts.map((item)=>{
       return <ProfilePosting leftMargin={'0%'} width={'90%'} height={'200px'} arrow={false} company = {item.company} description = {item.description}/>
@@ -98,13 +102,35 @@ class ProfilePage extends React.Component {
               LinkedIn
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" style={{ width: 20, height: 20, marginLeft: 5 }} />
             </div>
-            <a href="https://www.linkedin.com/in/cwransleriv/" style={{ marginLeft: 50, marginTop: 10 }}>https://www.linkedin.com/in/cwransleriv/</a>
+            {/* <a href="https://www.linkedin.com/in/cwransleriv/" style={{ marginLeft: 50, marginTop: 10 }}>https://www.linkedin.com/in/cwransleriv/</a> */}
+            <div style={{ lineHeight: '16px' }}>{this.state.linkedIn!==undefined ? <EditTextfieldHref text={this.state.linkedIn} userId={this.state.userId} /> : <div></div>}</div>
             <div style={{ marginLeft: 50, marginTop: 30, fontSize: 20, display: 'flex', }}>
               GitHub
               <img src="https://image.flaticon.com/icons/svg/25/25231.svg" style={{ width: 20, height: 20, marginLeft: 5 }} />
             </div>
-            <a href="https://github.com/mfrifkin" style={{ marginLeft: 50, marginTop: 10 }}>https://github.com/mfrifkin</a>
+
+
+
+
+            {/* <a href="https://github.com/mfrifkin" style={{ marginLeft: 50, marginTop: 10 }}>https://github.com/mfrifkin</a> */}
+            <div style={{ lineHeight: '16px' }}>{this.state.github!==undefined ? <EditTextfieldHref text={this.state.github} userId={this.state.userId} /> : <div></div>}</div>
           </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           <div className="profile2" style={{ marginTop: 40, fontSize: 40, display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
             Kitty Cat Kevin
