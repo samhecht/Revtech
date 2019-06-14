@@ -147,7 +147,7 @@ function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button href='#' size="small" color="primary" >
+        <Button href={props.company.link} size="small" color="primary" >
           Learn More
         </Button>
 

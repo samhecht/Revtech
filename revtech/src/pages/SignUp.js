@@ -71,6 +71,11 @@ const { history } = props;
   const [message, setMessage] = useState("");
 
 
+  const [link, setLink] = useState("");
+  const handleLink= (e) => {
+    setLink(e.target.value);
+  };
+
   const handleSignUp = (e) => {
     e.preventDefault();
     
@@ -90,6 +95,7 @@ const { history } = props;
           name: name,
           email: email,
           permission: 'company',
+          link: link
           
         }
         
@@ -158,6 +164,22 @@ const { history } = props;
            autoComplete="current-password"
            onChange={handlePassword}
          />
+
+
+        <TextField
+           variant="outlined"
+           margin="normal"
+           
+           fullWidth
+           name="link"
+           label="Link to website"
+           type="link"
+           id="link"
+         
+           onChange={handleLink}
+         />
+
+
          <FormControlLabel
            control={<Checkbox value="remember" color="primary" />}
            label="Remember me"

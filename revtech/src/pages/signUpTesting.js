@@ -96,13 +96,27 @@ function SignUpNew(props) {
         
         // firebase.auth().createUserWithEmailAndPassword(email, pwd)
         // .then(() => {
+          let git;
+          if(github==""){
+            git = "https://github.com/samhecht";
+          }
+          else{
+            git = github;
+          }
+          let linked;
+          if(linkedIn==""){
+            linked = "https://www.linkedin.com/in/cwransleriv/";
+          }
+          else{
+            linked = linkedIn;
+          }
           // created a user now add everything to the db and redirect
           let currUser = {
             email: firebase.auth().currentUser.email,
             first: firstName,
             last: lastName,
-            github: github,
-            linkedIn: linkedIn,
+            github: git,
+            linkedIn: linked,
             bio: bio,
             permission: "student",
             skills: "empty"
