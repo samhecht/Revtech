@@ -94,6 +94,7 @@ export default function Posting(props) {
                         flexDirection='row'
                         justifyContent='flex-end'
                         marginRight='5%'
+                     
                        
                     >
                     {props.arrow? (<ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>):<div></div>}

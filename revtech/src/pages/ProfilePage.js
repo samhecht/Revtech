@@ -121,18 +121,6 @@ class ProfilePage extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
           <div className="profile2" style={{ marginTop: 40, fontSize: 40, display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
            {this.state.first} {this.state.last}
            <div style={{ fontSize: 10, display: 'flex', justifyContent: 'start' }}>HackCville Member</div>
