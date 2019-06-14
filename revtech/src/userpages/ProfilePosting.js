@@ -39,7 +39,8 @@ export default function ProfilePosting(props) {
                     flexDirection='column'
                     justifyContent='space-evenly'
                     width='100%'
-                    height='100%'                    
+                    height='100%' 
+                    boxShadow = {7}                   
                 >
                     <Typography variant="h5" component="h3">
                         {props.company}
@@ -52,6 +53,7 @@ export default function ProfilePosting(props) {
                         flexDirection='row'
                         justifyContent='flex-end'
                         marginRight='5%'
+                        
                     >
                     {props.arrow? (<ArrowDownwardIcon onClick={handleClick}></ArrowDownwardIcon>):<div></div>}
                     </Box>

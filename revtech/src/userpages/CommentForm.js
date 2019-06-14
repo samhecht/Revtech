@@ -60,7 +60,7 @@ export default function CommentForm(props) {
                     boxShadow = {7}
                 >
                     <Typography style={studentStyle}>
-                        Student Name
+                        Enter a bid!
                     </Typography>
 
                     <TextField
