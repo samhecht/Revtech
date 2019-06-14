@@ -42,11 +42,10 @@ export default function ProfilePosting(props) {
                     height='100%'                    
                 >
                     <Typography variant="h5" component="h3">
-                        HackCville
+                        {props.company}
                     </Typography>
                     <Typography variant="body1" component="h3">
-                        I need someone to make me a react app.
-                        It's gotta be really good.  I'll pay 15$ per hour
+                      {props.description}
                     </Typography>
                     <Box
                         display='flex'
