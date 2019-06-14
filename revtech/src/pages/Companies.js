@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import Navbar from './../components/Navbar.js'
+import Footer from './../components/Footer.js'
 
 import Grid from '@material-ui/core/Grid';
 
@@ -86,7 +87,7 @@ function Companies(){
             >
             {renderCompanies()}
             </Grid>
-            
+            <Footer/>
         </div>
       );
     

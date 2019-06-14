@@ -48,7 +48,7 @@ export default class Approval extends React.Component {
                     approved: "approved"
                 })
                 this.setState({
-                    approved: "approved"
+                    approved: "approved",
                 })
                 // console.log(this.state.approved);
             } else { // (this.state.approved === "approved")
@@ -56,7 +56,7 @@ export default class Approval extends React.Component {
                     approved: "pending"
                 })
                 this.setState({
-                    approved: "pending"
+                    approved: "pending",
                 })
                 console.log(this.state.approved);
             }

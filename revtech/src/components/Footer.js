@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
       color: 'white',
       paddingBottom: '20px',
       paddingTop: '20px',
+      marginTop: '150px'
     },
     creatorInfo: {
       display: 'flex',
