@@ -113,7 +113,7 @@ class App extends React.Component{
         <Route path="/SignUpCompany" exact component={SignUp} />
         <Route path="/SignUpStudent" exact component={SignUpNew} />
         <Route path="/SignUp" exact component={SignUpChoice} />
-        <Route path="/profilepage" exact component = {ProfilePage} />
+   
 
 
         <PrivateRoute path="/CompanyProfile" exact component = {CompanyProfile} user={this.state.user} permission = {this.state.permission} permissionType="company"/>
@@ -121,7 +121,7 @@ class App extends React.Component{
         <PrivateRoute path="/Students" exact component = {Students} user={this.state.user} permission = {this.state.permission} permissionType="all"/>
         <PrivateRoute path="/Companies" exact component = {Companies} user={this.state.user} permission = {this.state.permission} permissionType="all"/>
         <PrivateRoute path="/Marketplace" exact component = {Marketplace} user={this.state.user} permission = {this.state.permission} permissionType="student"/>
-        <PrivateRoute path="/privatestudent" exact component = {Companies} user={this.state.user} permission = {this.state.permission} permissionType="student"/> 
+        <PrivateRoute path="/ProfilePage" exact component = {ProfilePage} user={this.state.user} permission = {this.state.permission} permissionType="student"/> 
       </Router>
 
       </div>
