@@ -46,7 +46,7 @@ class EditTextFieldHref extends React.Component {
 
         //update firebase
         console.log(this.props.userId)
-        const userRef = firebase.database().ref("students/"+this.props.userId+"/github");
+        const userRef = firebase.database().ref("students/"+this.props.userId+"/"+this.props.src);
         userRef.set(newText)
         userRef.on('value', (snapshot) => {
             let tasks = snapshot.val();
