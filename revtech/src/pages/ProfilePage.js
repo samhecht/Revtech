@@ -32,6 +32,7 @@ class ProfilePage extends React.Component {
         console.log(userId)
         userRef.on('value', (snapshot) => {
           let data = snapshot.val();
+          if(data!==null){
           this.setState({
             bio: data.bio,
             last: data.last,
@@ -40,6 +41,7 @@ class ProfilePage extends React.Component {
             github: data.github,
             linkedIn: data.linkedIn
           })
+        }
         });
         //fetch comments
         commentsRef.on('value', (snapshot) => {
@@ -103,7 +105,7 @@ class ProfilePage extends React.Component {
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" style={{ width: 20, height: 20, marginLeft: 5 }} />
             </div>
             {/* <a href="https://www.linkedin.com/in/cwransleriv/" style={{ marginLeft: 50, marginTop: 10 }}>https://www.linkedin.com/in/cwransleriv/</a> */}
-            <div style={{ lineHeight: '16px' }}>{this.state.linkedIn!==undefined ? <EditTextfieldHref text={this.state.linkedIn} userId={this.state.userId} /> : <div></div>}</div>
+            <div style={{ lineHeight: '16px' }}>{this.state.linkedIn!==undefined ? <EditTextfieldHref text={this.state.linkedIn} userId={this.state.userId} src = {'linkedIn'}/> : <div></div>}</div>
             <div style={{ marginLeft: 50, marginTop: 30, fontSize: 20, display: 'flex', }}>
               GitHub
               <img src="https://image.flaticon.com/icons/svg/25/25231.svg" style={{ width: 20, height: 20, marginLeft: 5 }} />
@@ -113,7 +115,7 @@ class ProfilePage extends React.Component {
 
 
             {/* <a href="https://github.com/mfrifkin" style={{ marginLeft: 50, marginTop: 10 }}>https://github.com/mfrifkin</a> */}
-            <div style={{ lineHeight: '16px' }}>{this.state.github!==undefined ? <EditTextfieldHref text={this.state.github} userId={this.state.userId} /> : <div></div>}</div>
+            <div style={{ lineHeight: '16px' }}>{this.state.github!==undefined ? <EditTextfieldHref text={this.state.github} userId={this.state.userId} src = {'github'}/> : <div></div>}</div>
           </div>
 
 

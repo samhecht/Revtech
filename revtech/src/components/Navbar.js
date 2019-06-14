@@ -125,7 +125,10 @@ function Navbar(props){
         >
 
           {(user && perm === "student") 
-            ? <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+            ? <React.Fragment>
+            <Button color="inherit"><Link style={linkStyle} to="/Marketplace">Marketplace</Link></Button>
+            <Button color="inherit"><Link style={linkStyle} to="/profilepage">Profile</Link></Button>
+            </React.Fragment>
             : null
           }
           {(user && perm === "company") 
