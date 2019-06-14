@@ -175,7 +175,8 @@ export default function Home(props) {
       <Box style={imageBoxStyle}>
         <Box style={overlayBoxStyle}>
           <Box style={overlayBoxText}>
-              <h1 style={heroTitle}>A tech hub for students and companies</h1>
+                                                  {/* font-family: 'Slabo 27px', serif; */}
+              <h1 style={heroTitle}>A <span style={{color:'#a1d6fc', fontStyle: 'oblique', fontFamily:'Slabo, serif'}}>tech hub</span> for students and companies</h1>
               <h2 style={heroTagline}>Discover top talent. Connect with industry professionals. Work on meaningful projects.</h2>
              { (!isUser) ? <Button style={buttonStyle}><Link style={linkStyle} to="/SignUp">Join Us</Link></Button> : null}
           </Box>
