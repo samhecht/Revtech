@@ -39,7 +39,8 @@ export default function ProfilePosting(props) {
                     flexDirection='column'
                     justifyContent='space-evenly'
                     width='100%'
-                    height='100%'                    
+                    height='100%' 
+                    boxShadow = {7}                   
                 >
                     <Typography variant="h5" component="h3">
                         {props.company}

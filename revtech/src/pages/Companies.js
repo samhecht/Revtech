@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import Navbar from './../components/Navbar.js'
+import Footer from './../components/Footer.js'
 
 import Grid from '@material-ui/core/Grid';
 
@@ -86,7 +87,7 @@ function Companies(){
             >
             {renderCompanies()}
             </Grid>
-            
+            <Footer/>
         </div>
       );
     
@@ -146,7 +147,7 @@ function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button href='#' size="small" color="primary" >
+        <Button href={props.company.link} size="small" color="primary" >
           Learn More
         </Button>
 
