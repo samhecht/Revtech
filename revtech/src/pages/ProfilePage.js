@@ -34,7 +34,6 @@ class ProfilePage extends React.Component {
           let data = snapshot.val();
           if(data!==null){
           this.setState({
-            first: data.first,
             bio: data.bio,
             last: data.last,
             skills: data.skills,
@@ -98,7 +97,7 @@ class ProfilePage extends React.Component {
       <div className="appContainer " style={{ minHeight: 1000 }}>
         <Navbar />
         <div className="profile1">
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start', marginRight: '5%' }}>
             <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?cs=srgb&dl=adorable-animal-animal-photography-259803.jpg&fm=jpg" style={{ width: 300, height: 300, margin: 50 }} />
             <div style={{ marginLeft: 50, marginBottom: 20, color: 'grey', fontSize: 15 }}> Contact Info _________________________________</div>
             <div style={{ marginLeft: 50, fontSize: 20, display: 'flex', }}>
@@ -123,8 +122,20 @@ class ProfilePage extends React.Component {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
           <div className="profile2" style={{ marginTop: 40, fontSize: 40, display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
-           {this.state.first} {this.state.last}
+            Kitty Cat Kevin
            <div style={{ fontSize: 10, display: 'flex', justifyContent: 'start' }}>HackCville Member</div>
             <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Bio</div>
             {this.state.bio.length > 0 ? <EditTextfield text={this.state.bio} userId={this.state.userId} /> : <div></div>}
