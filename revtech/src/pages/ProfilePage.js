@@ -33,6 +33,7 @@ class ProfilePage extends React.Component {
         userRef.on('value', (snapshot) => {
           let data = snapshot.val();
           this.setState({
+            first: data.first,
             bio: data.bio,
             last: data.last,
             skills: data.skills,
@@ -133,7 +134,7 @@ class ProfilePage extends React.Component {
 
 
           <div className="profile2" style={{ marginTop: 40, fontSize: 40, display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
-            Kitty Cat Kevin
+           {this.state.first} {this.state.last}
            <div style={{ fontSize: 10, display: 'flex', justifyContent: 'start' }}>HackCville Member</div>
             <div style={{ fontSize: 30, display: 'flex', justifyContent: 'start', marginTop: 20 }} >Bio</div>
             {this.state.bio.length > 0 ? <EditTextfield text={this.state.bio} userId={this.state.userId} /> : <div></div>}
