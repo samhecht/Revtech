@@ -56,14 +56,25 @@ export default function Comment(props) {
                 <Typography style={commentStyle}>
                     {props.comment.commentBody}
                 </Typography>
+                <Box display='flex' flexDirection='row' justifyContent='flex-end'>
+                {(props.comment.userEmail === currentEmail) ?
                 <Button
                     variant='contained'
                     color='primary'
                     style={buttonStyle}
                     onClick={handleClick} 
+                    style={{
+                        backgroundColor: '#E63734',
+                        marginBottom: '2%',
+                        marginRight: '2%'
+                    }}
+                    
                 >
-                    Delete Comment
+                    Delete
                 </Button>
+                : null
+                }
+                </Box>
                 </Box>
             </Paper>
         </React.Fragment>
