@@ -50,7 +50,7 @@ export default function Comment(props) {
                     justifyContent='space-evenly'
                     boxShadow = {7}
                 >
-                <Typography>
+                <Typography style={{marginTop: '2%'}}>
                     {props.comment.userEmail}
                 </Typography>
                 <Typography style={commentStyle}>
